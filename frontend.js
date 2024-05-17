@@ -133,17 +133,22 @@ function msgread(content) {
     }
     return arn;
 }
-function msgfilter(content, words = '') {
+function msgfilter(content, words) {
     var arn = msgread(content);
     var arv = [];
+    var wordArr = words.match(/(#\w*)/g);
     for (ind in arn) {
-        if (arn[ind].toLowerCase().includes(words.toLowerCase())) {
-            arv[ind] = arn[ind];
+        if (wordArr !== null) {
+            for (i = 0; i < wordArr.length; i++) {
+                if (arn[ind].toLowerCase().includes(wordArr[i].replace('#', '').toLowerCase())) {
+                    arv[ind] = arn[ind];
+                }
+            }
         }
     }
     return arv;
 }
-function msghtml(content, words = '') {
+function msghtml(content, words) {
     var arn = msgfilter(content, words);
     var str = '';
     for (ind in arn) {
