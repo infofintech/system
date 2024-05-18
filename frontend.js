@@ -119,17 +119,33 @@ function nextImage(list, elem) {
     return arr[num];
 }
 function miniPager(content, key) {
-    return content.split(/\r?\n/)[key];
+    var fmla = content.split(/\r?\n/)[key];
+    var res = '';
+    if (fmla !== undefined) {
+        res = fmla;
+    } else {
+        res = '';
+    }
+    return res;
 }
 function pager(content, key) {
-    return content.split(/\r\n\r\n/)[key];
+    var fmla = content.split(/\r\n\r\n/)[key];
+    var res = '';
+    if (fmla !== undefined) {
+        res = fmla;
+    } else {
+        res = '';
+    }
+    return res;
 }
 function msgread(content) {
     var arr = content.split(/\r?\n/);
     var arn = {};
     for (i = 0; i < arr.length; i++) {
-        arf = arr[i].split(' | ');
-        arn[arf[0]] = arf[1];
+        if (arr[i].includes(' | ')) {
+            arf = arr[i].split(' | ');
+            arn[arf[0]] = arf[1];
+        }
     }
     return arn;
 }
