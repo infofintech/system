@@ -156,6 +156,15 @@ function msgcompile(obj) {
     }
     return res;
 }
+function msgclear(obj, id) {
+    var index = Object.keys(obj);
+    for (i = 0; i < index.length; i++) {
+        if (index[i].includes(id)) {
+            delete obj[index[i]];
+        }
+    }
+    return obj;
+}
 function msgfilter(content, words) {
     var arn = msgread(content);
     var arv = [];
