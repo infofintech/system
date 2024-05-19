@@ -142,7 +142,7 @@ function msgread(content) {
     var arr = content.split(/\r?\n/);
     var arn = {};
     for (i = 0; i < arr.length; i++) {
-        if (arr[i].includes(' | ')) {
+        if ((arr[i].includes(' | ')) && (arr[i] != '')) {
             arf = arr[i].split(' | ');
             arn[arf[0]] = arf[1];
         }
@@ -150,11 +150,11 @@ function msgread(content) {
     return arn;
 }
 function msgcompile(obj) {
-    var res = "";
+    var res = [];
     for (el in obj) {
-        res += el+' | '+obj[el]+"\r\n";
+        res.push(el+' | '+obj[el]);
     }
-    return res;
+    return res.join(/\r?\n/);
 }
 function msgclear(obj, id) {
     var index = Object.keys(obj);
