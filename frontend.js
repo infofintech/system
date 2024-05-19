@@ -149,6 +149,13 @@ function msgread(content) {
     }
     return arn;
 }
+function msgcompile(obj) {
+    var res = "";
+    for (el in obj) {
+        res += el+' | '+obj[el]+"\r\n";
+    }
+    return res;
+}
 function msgfilter(content, words) {
     var arn = msgread(content);
     var arv = [];
