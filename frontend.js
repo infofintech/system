@@ -59,7 +59,9 @@ function onlyUnique(value, index, array) {
     return array.indexOf(value) === index;
 }
 function finarr(arr) {
-    return arr.filter(onlyUnique).filter(function(e){return e}).sort();
+    return arr.filter(onlyUnique).filter(function(e) {
+        return e
+    });
 }
 function arrsum(arr) {
     var res = 0;
