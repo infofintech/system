@@ -1,5 +1,5 @@
 function ucfirst(str) {
-    return (str[0].toUpperCase() + str.slice(1));
+    return (str[0].toUpperCase()+str.slice(1));
 }
 function flip(x) {
     return ((x > 1) || (x < 0)) ? 0 : (1 - x);
@@ -139,56 +139,6 @@ function pager(content, key) {
         res = '';
     }
     return res;
-}
-function msgread(content) {
-    var arr = content.split(/\r?\n/);
-    var arn = {};
-    for (i = 0; i < arr.length; i++) {
-        if ((arr[i].includes(' | ')) && (arr[i] != '')) {
-            arf = arr[i].split(' | ');
-            arn[arf[0]] = arf[1];
-        }
-    }
-    return arn;
-}
-function msgcompile(obj) {
-    var res = [];
-    for (el in obj) {
-        res.push(el+' | '+obj[el]);
-    }
-    return res.join(/\r?\n/);
-}
-function msgclear(obj, id) {
-    var index = Object.keys(obj);
-    for (i = 0; i < index.length; i++) {
-        if (index[i].includes(id)) {
-            delete obj[index[i]];
-        }
-    }
-    return obj;
-}
-function msgfilter(content, words) {
-    var arn = msgread(content);
-    var arv = [];
-    var wordArr = words.match(/(#\w*)/g);
-    for (ind in arn) {
-        if (wordArr !== null) {
-            for (i = 0; i < wordArr.length; i++) {
-                if (arn[ind].toLowerCase().includes(wordArr[i].replace('#', '').toLowerCase())) {
-                    arv[ind] = arn[ind];
-                }
-            }
-        }
-    }
-    return arv;
-}
-function msghtml(content, words) {
-    var arn = msgfilter(content, words);
-    var str = '';
-    for (ind in arn) {
-        str = ind+'<br>'+arn[ind]+'<br>'+str;
-    }
-    return str;
 }
 function countChars(str) {
     return str.replace(/[\u0080-\u10FFFF]/g, "x").length;
