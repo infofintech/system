@@ -5,15 +5,18 @@ function flip(x) {
     return ((x > 1) || (x < 0)) ? 0 : (1 - x);
 }
 function calc(expr) {
-    var res, prep; if (expr.match(/[a-z]/gi) !== null) {
+    var res, prep;
+    if (expr.match(/[a-z]/gi) !== null) {
         prep = expr.match(/[a-z]/gi)[0];
         res = nerdamer.solve(expr, prep);
     } else {
         res = eval(expr);
-    } return res;
+    }
+    return res;
 }
 function math(frml) {
-    var res, arr; var fmla = frml.toString().replaceAll('^','**');
+    var res, arr;
+    var fmla = frml.toString().replaceAll('^','**');
     if (fmla.includes(',')) {
         arr = fmla.split(',');
         for (i = 0; i < arr.length; i++) {
@@ -21,7 +24,37 @@ function math(frml) {
         }
     } else {
         res = calc(fmla);
-    } return res.toString().replaceAll('[','').replaceAll(']','');
+    }
+    return res.toString().replaceAll('[','').replaceAll(']','');
+}
+function arrmath(input) {
+    var arr = []; var mas = []; var res = [];
+    if (input.includes('|')) {
+        arr = input.split('|');
+        for (el in arr) {
+            mas = arr[el].split(',');
+            res = (el == 0) ? mas : res.concat(mas);
+        }
+    } else if (input.includes('&')) {
+        arr = input.split('&');
+        for (el in arr) {
+            mas = arr[el].split(',');
+            res = (el == 0) ? mas : res.filter(x => mas.includes(x));
+        }
+    } else if (input.includes('~')) {
+        arr = input.split('~');
+        for (el in arr) {
+            mas = arr[el].split(',');
+            res = (el == 0) ? mas : res.filter(x => !mas.includes(x));
+        }
+    } else if (input.includes('^')) {
+        arr = input.split('^');
+        for (el in arr) {
+            mas = arr[el].split(',');
+            res = (el == 0) ? mas : res.filter(x => !mas.includes(x)).concat(mas.filter(x => !res.includes(x)));
+        }
+    }
+    return res;
 }
 function pad(num, size) {
     num = num.toString();
