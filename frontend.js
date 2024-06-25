@@ -5,48 +5,58 @@ function flip(x) {
     return ((x > 1) || (x < 0)) ? 0 : (1 - x);
 }
 function calc(expr) {
-    var res, prep;
-    if (expr.match(/[a-z]/gi) !== null) {
-        prep = expr.match(/[a-z]/gi)[0];
-        res = nerdamer.solve(expr, prep);
+    var res, arr = [], sol, vars, reg;
+    nerdamer.set('SOLUTIONS_AS_OBJECT', true);
+    reg = /\b(?:([a-z])(?!\w))+\b/gi;
+    if (expr.match(reg) !== null) {
+        vars = finarr(expr.match(reg));
+        for (i = 0; i < vars.length; i++) {
+            sol = nerdamer.solve(expr, vars[i]).toString();
+            arr.push(vars[i]+'='+sol.replace('[','').replace(']',''));
+        }
+        res = arr.join(',');
     } else {
         res = eval(expr);
     }
     return res;
 }
-function math(frml) {
-    var res, arr;
-    var fmla = frml.toString().replaceAll('^','**');
-    if (fmla.includes(',')) {
-        arr = fmla.split(',');
-        for (i = 0; i < arr.length; i++) {
-            res = calc(arr[i]);
+function math(expr) {
+    var res, prep = [], arr = [];
+    if (expr.includes(',')) {
+        prep = expr.split(',');
+        for (i = 0; i < prep.length; i++) {
+            arr.push(calc(prep[i]));
         }
+        res = arr.join(',');
     } else {
-        res = calc(fmla);
+        res = calc(expr);
     }
-    return res.toString().replaceAll('[','').replaceAll(']','');
+    return res;
 }
 function arrmath(input) {
     var arr = []; var mas = []; var res = [];
+    // UNION, Logical OR
     if (input.includes('|')) {
         arr = input.split('|');
         for (el in arr) {
             mas = arr[el].split(',');
             res = (el == 0) ? mas : res.concat(mas);
         }
+    // INTERSECTION, Logical AND
     } else if (input.includes('&')) {
         arr = input.split('&');
         for (el in arr) {
             mas = arr[el].split(',');
             res = (el == 0) ? mas : res.filter(x => mas.includes(x));
         }
+    // COMPLEMENT, Logical NOT
     } else if (input.includes('~')) {
         arr = input.split('~');
         for (el in arr) {
             mas = arr[el].split(',');
             res = (el == 0) ? mas : res.filter(x => !mas.includes(x));
         }
+    // SYMMETRIC DIFFERENCE, Logical XOR
     } else if (input.includes('^')) {
         arr = input.split('^');
         for (el in arr) {
