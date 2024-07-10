@@ -186,9 +186,12 @@ function pager(content, key) {
 function countChars(str) {
     return str.replace(/[\u0080-\u10FFFF]/g, "x").length;
 }
-function nlog(x, y) {
+function superRound(x, y) {
+    return Math.round((x + Number.EPSILON) * (10 ** y)) / (10 ** y);
+}
+function superLog(x, y) {
     return Math.round(Math.log(y) / Math.log(x));
 }
-function nrt(x, y) {
+function superRoot(x, y) {
     return Math.round(Math.pow(y, 1/x));
 }
