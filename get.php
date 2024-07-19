@@ -1,18 +1,16 @@
 <?php
-function parseArrayFile($name): array
-{
+function parseArrayFile($name): array {
     $arr = explode('|[1]|', (file_get_contents($name)));
-    $obj = []; foreach ($arr as $line)
-    {
+    $obj = []; foreach ($arr as $line) {
         $obj[explode('|[>]|', $line)[0]] = explode('|[>]|', $line)[1];
     } return $obj;
 }
-$action = $_REQUEST['action'];
-$host = ($_REQUEST['host']) ? $_REQUEST['host'] : 'https://github.com';
-$pkg = $_REQUEST['pkg'];
-$repo = $_REQUEST['repo'];
-$branch = ($_REQUEST['branch']) ? $_REQUEST['branch'] : '';
-$user = $_REQUEST['user'];
+$action = (isset($_REQUEST['action'])) ? $_REQUEST['action'] : 'i';
+$host = (isset($_REQUEST['host'])) ? $_REQUEST['host'] : 'https://github.com';
+$pkg = (isset($_REQUEST['pkg'])) ? $_REQUEST['pkg'] : 'from';
+$repo = (isset($_REQUEST['repo'])) ? $_REQUEST['repo'] : 'system';
+$branch = (isset($_REQUEST['branch'])) ? $_REQUEST['branch'] : '';
+$user = (isset($_REQUEST['user'])) ? $_REQUEST['user'] : 'infofintech';
 if ($action == 'i' || $action == 's' || $action == 'o') {
     if ($pkg == "from" && $repo != "" && $user != "") {
         $hostArr = explode('://', $host);
