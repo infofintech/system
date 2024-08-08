@@ -5,33 +5,87 @@ function flip(x) {
     return ((x > 1) || (x < 0)) ? 0 : (1 - x);
 }
 function calc(expr) {
-    var res, arr = [], sol, vars, reg;
+    var res = '', prep, prec, arr = [], rer = [], sol, vars, reg, solt = [];
     nerdamer.set('SOLUTIONS_AS_OBJECT', true);
     reg = /\b(?:([a-z])(?!\w))+\b/gi;
-    if (expr.match(reg) !== null) {
-        vars = finarr(expr.match(reg));
-        for (i = 0; i < vars.length; i++) {
-            sol = nerdamer.solve(expr, vars[i]).toString();
-            arr.push(vars[i]+'='+sol.replace('[','').replace(']',''));
-        }
-        res = arr.join(',');
+    if (expr.includes(';')) {
+        prep = expr.split(';');
+        for (ib in prep) {
+            if (prep[ib].includes(',')) {
+                prec = prep[ib].split(',');
+                for (ic in prec) {
+                    if (prep[ib].match(reg) !== null) {
+                        vars = finarr(prep[ib].match(reg));
+                        for (vr in vars) {
+                            sol = nerdamer.solve(prec[ic], vars[vr]).toString();
+                            if (sol.includes(',')) {
+                                solt = sol.split(',');
+                                for (io in solt) {
+                                    arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                                }
+                            } else {
+                                arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                            }
+                        } rer.push(finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(','));
+                    }
+                }
+            } else {
+                if (prep[ib].match(reg) !== null) {
+                    vars = finarr(prep[ib].match(reg));
+                    for (vr in vars) {
+                        sol = nerdamer.solve(prep[ib], vars[vr]).toString();
+                        if (sol.includes(',')) {
+                            solt = sol.split(',');
+                            for (io in solt) {
+                                arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                            }
+                        } else {
+                            arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                        }
+                    } rer.push(finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(','));
+                } else {
+                    rer.push(eval(prep[ib]));
+                }
+            }
+        } res = finarr(rer).join(';');
     } else {
-        res = eval(expr);
-    }
-    return res;
-}
-function math(expr) {
-    var res, prep = [], arr = [];
-    if (expr.includes(',')) {
-        prep = expr.split(',');
-        for (i = 0; i < prep.length; i++) {
-            arr.push(calc(prep[i]));
+        if (expr.includes(',')) {
+            prec = expr.split(',');
+            for (ic in prec) {
+                if (expr.match(reg) !== null) {
+                    vars = finarr(expr.match(reg));
+                    for (vr in vars) {
+                        sol = nerdamer.solve(prec[ic], vars[vr]).toString();
+                        if (sol.includes(',')) {
+                            solt = sol.split(',');
+                            for (io in solt) {
+                                arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                            }
+                        } else {
+                            arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                        }
+                    } res = finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(',');
+                }
+            }
+        } else {
+            if (expr.match(reg) !== null) {
+                vars = finarr(expr.match(reg));
+                for (vr in vars) {
+                    sol = nerdamer.solve(expr, vars[vr]).toString();
+                    if (sol.includes(',')) {
+                        solt = sol.split(',');
+                        for (io in solt) {
+                            arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                        }
+                    } else {
+                        arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                    }
+                } res = finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(',');
+            } else {
+                res = eval(expr);
+            }
         }
-        res = arr.join(',');
-    } else {
-        res = calc(expr);
-    }
-    return res;
+    } return res;
 }
 function arrmath(input) {
     var arr = []; var mas = []; var res = [];
