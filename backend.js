@@ -88,6 +88,22 @@ function playMIDI(id) {
 function pauseMIDI() {
     MIDIjs.pause();
 }
+function oper(name, oper, path = '', val = '', bulk = false) {
+    if (window.XMLHttpRequest) {
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState==4 && this.status==200) {
+            if (bulk !== true) {
+                window.location.reload();
+            }
+        }
+    }
+    xmlhttp.open("GET","oper.php?name="+name+"&oper="+oper+"&path="+path+"&val="+val,false);
+    xmlhttp.send();
+}
 function recycle(name, bulk = false) {
     if (window.XMLHttpRequest) {
         xmlhttp=new XMLHttpRequest();
