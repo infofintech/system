@@ -2,7 +2,8 @@
 $name = $_REQUEST['name']; $oper = $_REQUEST['oper'];
 $path = $_REQUEST['path']; $val = $_REQUEST['val'];
 $jf = (@json_decode(file_get_contents($name), true) != null) ? json_decode(file_get_contents($name), true) : [];
-if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper == 'touch') || ($oper == 'make') || ($oper == 'add') || ($oper == '+')) {
+if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper == 'touch') || ($oper == 'make') || ($oper == 'add')) {
+    if ($jf == [ "" => "" ]) { unset($jf[""]); }
     if (strpos($path, '/') !== false) {
         $nodes = explode('/', $path);
         $temp = &$jf;
@@ -19,8 +20,9 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
         if (!(isset($jf[$path]))) {
             $jf[$path] = $val;
         } $res = $jf;
-    }
-} elseif (($oper == 'remove') || ($oper == 'delete') || ($oper == 'drop') || ($oper == 'del') || ($oper == 'rm') || ($oper == '-')) {
+    } $cont = ($res == []) ? [ "" => "" ] : $res;
+} elseif (($oper == 'remove') || ($oper == 'delete') || ($oper == 'drop') || ($oper == 'del') || ($oper == 'rm')) {
+    if ($jf == [ "" => "" ]) { unset($jf[""]); }
     if (strpos($path, '/') !== false) {
         $nodes = explode('/', $path);
         $prevEl = NULL; $el = &$jf;
@@ -41,8 +43,8 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
         if (isset($jf[$path])) {
             unset($jf[$path]);
         } $res = $jf;
-    }
-} else if (($oper == 'clear') || ($oper == 'erase') || ($oper == 'purge') || ($oper == '~')) {
-    $res = [ "" => "" ];
-} file_put_contents($name, json_encode($res));
+    } $cont = ($res == []) ? [ "" => "" ] : $res;
+} else if (($oper == 'clear') || ($oper == 'erase') || ($oper == 'purge')) {
+    $cont = [ "" => "" ];
+} file_put_contents($name, json_encode($cont));
 chmod($name, 0777);
