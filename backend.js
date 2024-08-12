@@ -88,7 +88,7 @@ function playMIDI(id) {
 function pauseMIDI() {
     MIDIjs.pause();
 }
-function oper(name, oper, path = '', val = '', bulk = false) {
+function arr(name, oper, path = '', val = '', bulk = false) {
     if (window.XMLHttpRequest) {
         xmlhttp=new XMLHttpRequest();
     } else {
@@ -101,7 +101,7 @@ function oper(name, oper, path = '', val = '', bulk = false) {
             }
         }
     }
-    xmlhttp.open("GET","oper.php?name="+name+"&oper="+oper+"&path="+path+"&val="+val,false);
+    xmlhttp.open("GET","arr.php?name="+name+"&oper="+oper+"&path="+path+"&val="+val,false);
     xmlhttp.send();
 }
 function recycle(name, bulk = false) {
