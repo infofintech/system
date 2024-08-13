@@ -126,31 +126,37 @@ function pad(num, size) {
     return num;
 }
 function bin2hex(bin) {
-    var hex = ''; var hx, hg;
-    for (i = 0; i < bin.length; i++) {
-        hx = bin.codePointAt(i).toString(16);
-        if (hx.length > 4) {
-            hex += pad(hx, 6)+' ';
-        } else {
-            if (i > 0) {
-                hg = bin.codePointAt(i-1).toString(16);
-                if (hg.length <= 4) {
+    var res = '';
+    if (bin != '') {
+        var hex = ''; var hx, hg;
+        for (i = 0; i < bin.length; i++) {
+            hx = bin.codePointAt(i).toString(16);
+            if (hx.length > 4) {
+                hex += pad(hx, 6)+' ';
+            } else {
+                if (i > 0) {
+                    hg = bin.codePointAt(i-1).toString(16);
+                    if (hg.length <= 4) {
+                        hex += pad(hx, 6)+' ';
+                    }
+                } else {
                     hex += pad(hx, 6)+' ';
                 }
-            } else {
-                hex += pad(hx, 6)+' ';
             }
         }
-    }
-    return hex.slice(0, -1);
+        res = hex.slice(0, -1);
+    } return res;
 }
 function hex2bin(hex) {
-    var bytes = [];
-    var hd = hex.split(' ');
-    for (i = 0; i < hd.length; i++) {
-        bytes.push(parseInt(hd[i], 16));
-    }
-    return String.fromCodePoint.apply(String, bytes);
+    var res = '';
+    if (hex != '') {
+        var bytes = [];
+        var hd = hex.split(' ');
+        for (i = 0; i < hd.length; i++) {
+            bytes.push(parseInt(hd[i], 16));
+        }
+        res = String.fromCodePoint.apply(String, bytes);
+    } return res;
 }
 function arraySearch(needle, haystack) {
     for (key in haystack) {
