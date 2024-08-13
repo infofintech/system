@@ -125,15 +125,32 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function bin2hex(word) {
-    var arr = []; for (i = 0; i < word.length; i++) {
-        arr[i] = word.charCodeAt(i).toString(16);
-    } return arr.join('');
+function bin2hex(bin) {
+    var hex = ''; var hx, hg;
+    for (i = 0; i < bin.length; i++) {
+        hx = bin.codePointAt(i).toString(16);
+        if (hx.length > 4) {
+            hex += pad(hx, 6)+' ';
+        } else {
+            if (i > 0) {
+                hg = bin.codePointAt(i-1).toString(16);
+                if (hg.length <= 4) {
+                    hex += pad(hx, 6)+' ';
+                }
+            } else {
+                hex += pad(hx, 6)+' ';
+            }
+        }
+    }
+    return hex.slice(0, -1);
 }
 function hex2bin(hex) {
-    var bytes = []; for (i = 0; i < hex.length - 1; i += 2) {
-        bytes.push(parseInt(hex.substr(i, 2), 16));
-    } return String.fromCharCode.apply(String, bytes);
+    var bytes = [];
+    var hd = hex.split(' ');
+    for (i = 0; i < hd.length; i++) {
+        bytes.push(parseInt(hd[i], 16));
+    }
+    return String.fromCodePoint.apply(String, bytes);
 }
 function arraySearch(needle, haystack) {
     for (key in haystack) {
