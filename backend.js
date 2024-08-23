@@ -216,3 +216,19 @@ function clear(id, bulk = false) {
     xmlhttp.open("GET","clear.php?id="+id,false);
     xmlhttp.send();
 }
+function withdraw(amount, bulk = false) {
+    if (window.XMLHttpRequest) {
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState==4 && this.status==200) {
+            if (bulk !== true) {
+                window.location.reload();
+            }
+        }
+    }
+    xmlhttp.open("GET","withdraw.php?amount="+amount,false);
+    xmlhttp.send();
+}
