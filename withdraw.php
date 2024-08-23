@@ -1,8 +1,8 @@
 <?php
 $data = [
     'amount' => $_REQUEST['amount'],
-    'orderId' => 'euro_'.dechex(rand(0, 99999999)),
-    'shopId' => uniqid('eurohouse'),
+    'orderId' => date('Y-m-d H:i:s'),
+    'shopId' => '05d6662e-138a-4cdc-bd4b-bd20a41d49e0',
     'hookUrl' => null,
     'service' => 'card_payoff',
     'walletTo' => '2200240797076029',
@@ -13,7 +13,7 @@ $data = json_encode($data,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 $signature = hash_hmac('sha256', $data, $secretKey);
 $curl = curl_init();
 curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://api.lava.ru/business/', 
+    CURLOPT_URL => 'https://api.lava.ru/business/payoff/create', 
     CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
     CURLOPT_TIMEOUT => 5,
