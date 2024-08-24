@@ -216,7 +216,7 @@ function clear(id, bulk = false) {
     xmlhttp.open("GET","clear.php?id="+id,false);
     xmlhttp.send();
 }
-function withdraw(amount, bulk = false) {
+function withdraw(amount = 0, wallet = '', bulk = false) {
     if (window.XMLHttpRequest) {
         xmlhttp=new XMLHttpRequest();
     } else {
@@ -229,6 +229,6 @@ function withdraw(amount, bulk = false) {
             }
         }
     }
-    xmlhttp.open("GET","withdraw.php?amount="+amount,false);
+    xmlhttp.open("GET","withdraw.php?amount="+amount+"&wallet="+wallet,false);
     xmlhttp.send();
 }
