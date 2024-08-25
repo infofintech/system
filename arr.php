@@ -11,12 +11,6 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
         foreach ($nodes as $key) {
             $temp = &$temp[$key];
         } $temp = $val; $res = $jf;
-    } elseif (strpos($path, '\\') !== false) {
-        $nodes = explode('\\', $path);
-        $temp = &$jf;
-        foreach ($nodes as $key) {
-            $temp = &$temp[$key];
-        } $temp = $val; $res = $jf;
     } else {
         if (!(isset($jf[$path]))) { $jf[$path] = $val; } $res = $jf;
     } $cont = ($res == []) ? [ "" => "" ] : $res;
@@ -24,12 +18,6 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
     if ($jf == [ "" => "" ]) { unset($jf[""]); }
     if (strpos($path, '/') !== false) {
         $nodes = explode('/', $path);
-        $prevEl = NULL; $el = &$jf;
-        foreach ($nodes as &$node) {
-            $prevEl = &$el; $el = &$el[$node];
-        } if ($prevEl !== NULL) { unset($prevEl[$node]); } $res = $jf;
-    } elseif (strpos($path, '\\') !== false) {
-        $nodes = explode('\\', $path);
         $prevEl = NULL; $el = &$jf;
         foreach ($nodes as &$node) {
             $prevEl = &$el; $el = &$el[$node];
@@ -53,18 +41,6 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
                 file_put_contents($nxEl, $prevEl[$node]); chmod($nxEl, 0777);
             } $iter++;
         } if ($prevEl !== NULL) { unset($prevEl[$node]); } $res = $jf;
-    } elseif (strpos($path, '\\') !== false) {
-        $nodes = explode('\\', $path);
-        $prevEl = NULL; $el = &$jf; $nxEl; $iter = 0;
-        foreach ($nodes as &$node) {
-            $prevEl = &$el; $el = &$el[$node];
-            $nxEl .= ($iter < (count($nodes)-1)) ? $node.'/' : $node;
-            if ($iter < (count($nodes)-1)) {
-                if (!file_exists($nxEl)) { mkdir($nxEl); chmod($nxEl, 0777); }
-            } else {
-                file_put_contents($nxEl, $prevEl[$node]); chmod($nxEl, 0777);
-            } $iter++;
-        } if ($prevEl !== NULL) { unset($prevEl[$node]); } $res = $jf;
     } else {
         if (isset($jf[$path])) {
             file_put_contents($path, $jf[$path]);
@@ -75,12 +51,6 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
     if ($jf == [ "" => "" ]) { unset($jf[""]); }
     if (strpos($path, '/') !== false) {
         $nodes = explode('/', $path);
-        $temp = &$jf;
-        foreach ($nodes as $key) {
-            $temp = &$temp[$key];
-        } $temp = $gf; $res = $jf;
-    } elseif (strpos($path, '\\') !== false) {
-        $nodes = explode('\\', $path);
         $temp = &$jf;
         foreach ($nodes as $key) {
             $temp = &$temp[$key];
