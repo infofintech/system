@@ -101,7 +101,7 @@ function arr(name, oper, path = '', val = '', bulk = false) {
             }
         }
     }
-    xmlhttp.open("GET","arr.php?name="+name+"&oper="+oper+"&path="+path+"&val="+val,false);
+    xmlhttp.open("GET","arr.php?name="+name+"&oper="+oper+"&path="+encodeURIComponent(path)+"&val="+val,false);
     xmlhttp.send();
 }
 function recycle(name, bulk = false) {

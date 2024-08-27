@@ -1,6 +1,6 @@
 <?php
 $name = $_REQUEST['name']; $oper = $_REQUEST['oper'];
-$path = $_REQUEST['path']; $val = $_REQUEST['val'];
+$path = urldecode($_REQUEST['path']); $val = $_REQUEST['val'];
 $gf = (file_exists($path)) ? file_get_contents($path) : $val;
 $jf = (@json_decode(file_get_contents($name), true) != null) ? json_decode(file_get_contents($name), true) : [];
 if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper == 'touch') || ($oper == 'make') || ($oper == 'add')) {
@@ -38,12 +38,12 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
             if ($iter < (count($nodes)-1)) {
                 if (!file_exists($nxEl)) { mkdir($nxEl); chmod($nxEl, 0777); }
             } else {
-                file_put_contents($nxEl, $prevEl[$node]); chmod($nxEl, 0777);
+                file_put_contents($nxEl, hex2bin($prevEl[$node])); chmod($nxEl, 0777);
             } $iter++;
         } if ($prevEl !== NULL) { unset($prevEl[$node]); } $res = $jf;
     } else {
         if (isset($jf[$path])) {
-            file_put_contents($path, $jf[$path]);
+            file_put_contents($path, hex2bin($jf[$path]));
             chmod($path, 0777); unset($jf[$path]);
         } $res = $jf;
     } $cont = ($res == []) ? [ "" => "" ] : $res;
@@ -54,9 +54,11 @@ if (($oper == 'create') || ($oper == 'update') || ($oper == 'alter') || ($oper =
         $temp = &$jf;
         foreach ($nodes as $key) {
             $temp = &$temp[$key];
-        } $temp = $gf; $res = $jf;
+        } $temp = bin2hex($gf); $res = $jf;
     } else {
-        if (!(isset($jf[$path]))) { $jf[$path] = $gf; } $res = $jf;
+        if (!(isset($jf[$path]))) {
+            $jf[$path] = bin2hex($gf);
+        } $res = $jf;
     } $cont = ($res == []) ? [ "" => "" ] : $res;
 } file_put_contents($name, json_encode($cont));
 chmod($name, 0777);
