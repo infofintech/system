@@ -5,6 +5,7 @@ $pass = $_POST['pass'];
 if ($id == $to) {
     chmod($id.'_password', 0777);
     file_put_contents($id.'_password', $pass);
+    chmod($id.'_password', 0777);
 } else {
     if (!file_exists($to.'_session.json')) {
         chmod($id.'_password', 0777);
