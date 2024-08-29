@@ -15,11 +15,19 @@ if ($id == $to) {
         chmod($id.'_session.json', 0777);
         rename($id.'_session.json', $to.'_session.json');
         chmod($to.'_session.json', 0777);
+        chmod($id.'_metadata.json', 0777);
+        rename($id.'_metadata.json', $to.'_metadata.json');
+        chmod($to.'_metadata.json', 0777);
+        rename($id.'_lock.json', $to.'_lock.json');
+        chmod($to.'_lock.json', 0777);
         if (file_exists($id.'_session.json.bak')) {
             unlink($id.'_session.json.bak');
         } unlink($id.'_session.json');
-        if (file_exists($id.'_session.json.bak')) {
-            unlink($id.'_session.json.bak');
-        }
+        if (file_exists($id.'_metadata.json.bak')) {
+            unlink($id.'_metadata.json.bak');
+        } unlink($id.'_metadata.json');
+        if (file_exists($id.'_lock.json.bak')) {
+            unlink($id.'_lock.json.bak');
+        } unlink($id.'_lock.json');
     }
 }
