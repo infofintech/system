@@ -125,37 +125,48 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function bin2hex(bin) {
-    var res = '';
+function bin2hex(bin, pass = '') {
+    var res = '', offs = numerStr(pass);
     if (bin != '') {
-        var hex = ''; var hx, hg;
+        var hex = ''; var pos, off, hexW, hexS;
         for (i = 0; i < bin.length; i++) {
-            hx = bin.codePointAt(i).toString(16);
-            if (hx.length > 4) {
-                hex += pad(hx, 6)+' ';
+            hexW = Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112).toString(16);
+            if (hexW.length > 4) {
+                hex += pad(hexW, 6)+' ';
             } else {
                 if (i > 0) {
-                    hg = bin.codePointAt(i-1).toString(16);
-                    if (hg.length <= 4) {
-                        hex += pad(hx, 6)+' ';
+                    hexS = Math.abs((bin.codePointAt(i-1)+Math.abs(offs))%1114112).toString(16); if (hexS.length <= 4) {
+                        hex += pad(hexW, 6)+' ';
                     }
                 } else {
-                    hex += pad(hx, 6)+' ';
+                    hex += pad(hexW, 6)+' ';
                 }
             }
-        }
-        res = hex.slice(0, -1);
+        } res = hex.slice(0, -1);
     } return res;
 }
-function hex2bin(hex) {
-    var res = '';
+function hex2bin(hex, pass = '') {
+    var res = '', offs = numerStr(pass);
     if (hex != '') {
         var bytes = [];
-        var hd = hex.split(' ');
-        for (i = 0; i < hd.length; i++) {
-            bytes.push(parseInt(hd[i], 16));
-        }
-        res = String.fromCodePoint.apply(String, bytes);
+        var hexS = hex.split(' ');
+        var pos, off;
+        for (i = 0; i < hexS.length; i++) {
+            pos = parseInt(hexS[i], 16);
+            off = Math.abs((pos + 1114112 - Math.abs(offs)) % 1114112);
+            bytes.push(off);
+        } res = String.fromCodePoint.apply(String, bytes);
+    } return res;
+}
+function numerStr(str) {
+    var res = 0;
+    if (str != '') {
+        var sum = 0;
+        for (i = 0; i < str.length; i++) {
+            sum += str.codePointAt(i);
+        } res = sum;
+    } else {
+        res = 0;
     } return res;
 }
 function arraySearch(needle, haystack) {
