@@ -126,7 +126,7 @@ function pad(num, size) {
     return num;
 }
 function bin2hex(bin, pass = '') {
-    var res = '', offs = numerStr(pass);
+    var res = '', offs = numstr(pass);
     if (bin != '') {
         var hex = ''; var pos, off, hexW, hexS;
         for (i = 0; i < bin.length; i++) {
@@ -146,7 +146,7 @@ function bin2hex(bin, pass = '') {
     } return res;
 }
 function hex2bin(hex, pass = '') {
-    var res = '', offs = numerStr(pass);
+    var res = '', offs = numstr(pass);
     if (hex != '') {
         var bytes = [];
         var hexS = hex.split(' ');
@@ -158,7 +158,7 @@ function hex2bin(hex, pass = '') {
         } res = String.fromCodePoint.apply(String, bytes);
     } return res;
 }
-function numerStr(str) {
+function numstr(str) {
     var res = 0;
     if (str != '') {
         var sum = 0;
