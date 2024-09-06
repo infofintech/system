@@ -125,8 +125,8 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function bin2hex(bin, pass = '') {
-    var res = '', offs = numstr(pass);
+function bin2hex(bin, offs = 0) {
+    var res = '';
     if (bin != '') {
         var hex = ''; var pos, off, hexW, hexS;
         for (i = 0; i < bin.length; i++) {
@@ -145,8 +145,8 @@ function bin2hex(bin, pass = '') {
         } res = hex.slice(0, -1);
     } return res;
 }
-function hex2bin(hex, pass = '') {
-    var res = '', offs = numstr(pass);
+function hex2bin(hex, offs = 0) {
+    var res = '';
     if (hex != '') {
         var bytes = [];
         var hexS = hex.split(' ');
@@ -158,12 +158,25 @@ function hex2bin(hex, pass = '') {
         } res = String.fromCodePoint.apply(String, bytes);
     } return res;
 }
-function numstr(str) {
+function sumstr(str) {
     var res = 0;
     if (str != '') {
-        var sum = 0;
+        var sum = 0, x = 0;
         for (i = 0; i < str.length; i++) {
+            x = str.codePointAt(i);
             sum += str.codePointAt(i);
+        } res = sum;
+    } else {
+        res = 0;
+    } return res;
+}
+function gemstr(str) {
+    var res = 0;
+    if (str != '') {
+        var sum = 0, x = 0;
+        for (i = 0; i < str.length; i++) {
+            x = str.codePointAt(i);
+            sum += 10*Math.floor((x-1)/9)*((x-1%9)+1);
         } res = sum;
     } else {
         res = 0;
