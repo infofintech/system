@@ -125,37 +125,32 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function bin2hex(bin, offs = 0) {
-    var res = '';
-    if (bin != '') {
-        var hex = ''; var pos, off, hexW, hexS;
+function bin2hex(bin, offs = 0, rad = 16) {
+    var res = ''; if (bin != '') {
+        var hex = '', pos, off;
         for (i = 0; i < bin.length; i++) {
-            hexW = Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112).toString(16);
-            if (hexW.length > 4) {
-                hex += pad(hexW, 6)+' ';
-            } else {
-                if (i > 0) {
-                    hexS = Math.abs((bin.codePointAt(i-1)+Math.abs(offs))%1114112).toString(16); if (hexS.length <= 4) {
-                        hex += pad(hexW, 6)+' ';
-                    }
-                } else {
-                    hex += pad(hexW, 6)+' ';
-                }
-            }
+            pos = Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112);
+            off = pos.toString(rad); hex += off+' ';
         } res = hex.slice(0, -1);
+    } else {
+        res = '';
     } return res;
 }
-function hex2bin(hex, offs = 0) {
-    var res = '';
-    if (hex != '') {
-        var bytes = [];
-        var hexS = hex.split(' ');
-        var pos, off;
-        for (i = 0; i < hexS.length; i++) {
-            pos = parseInt(hexS[i], 16);
+function hex2bin(hex, offs = 0, rad = 16) {
+    var res = ''; if (hex != '') {
+        var bytes = [], pos, off;
+        var str = hex.split(' ');
+        for (i = 0; i < str.length; i++) {
+            pos = parseInt(str[i], rad);
             off = Math.abs((pos + 1114112 - Math.abs(offs)) % 1114112);
             bytes.push(off);
-        } res = String.fromCodePoint.apply(String, bytes);
+        } try {
+            res = String.fromCodePoint.apply(String, bytes);
+        } catch (e) {
+            res = '';
+        }
+    } else {
+        res = '';
     } return res;
 }
 function sumstr(str) {
