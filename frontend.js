@@ -4,6 +4,12 @@ function ucfirst(str) {
 function flip(x) {
     return ((x > 1) || (x < 0)) ? 0 : (1 - x);
 }
+function jsexpr(source) {
+    source = source.replace("^","**");
+    source = source.replace("[","");
+    source = source.replace("]","");
+    return source;
+}
 function calc(expr) {
     var res = '', prep, prec, arr = [], rer = [], sol, vars, reg, solt = [];
     nerdamer.set('SOLUTIONS_AS_OBJECT', true);
@@ -21,10 +27,10 @@ function calc(expr) {
                             if (sol.includes(',')) {
                                 solt = sol.split(',');
                                 for (io in solt) {
-                                    arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                                    arr.push(vars[vr]+'='+jsexpr(solt[io]));
                                 }
                             } else {
-                                arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                                arr.push(vars[vr]+'='+jsexpr(sol));
                             }
                         } rer.push(finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(','));
                     }
@@ -37,14 +43,16 @@ function calc(expr) {
                         if (sol.includes(',')) {
                             solt = sol.split(',');
                             for (io in solt) {
-                                arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                                arr.push(vars[vr]+'='+jsexpr(solt[io]));
                             }
                         } else {
-                            arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                            arr.push(vars[vr]+'='+jsexpr(sol));
                         }
                     } rer.push(finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(','));
                 } else {
-                    rer.push(eval(prep[ib]));
+                    with(Math) {
+                        rer.push(eval(prep[ib]));
+                    }
                 }
             }
         } res = finarr(rer).join(';');
@@ -59,10 +67,10 @@ function calc(expr) {
                         if (sol.includes(',')) {
                             solt = sol.split(',');
                             for (io in solt) {
-                                arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                                arr.push(vars[vr]+'='+jsexpr(solt[io]));
                             }
                         } else {
-                            arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                            arr.push(vars[vr]+'='+jsexpr(sol));
                         }
                     } res = finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(',');
                 }
@@ -75,14 +83,16 @@ function calc(expr) {
                     if (sol.includes(',')) {
                         solt = sol.split(',');
                         for (io in solt) {
-                            arr.push(vars[vr]+'='+solt[io].replace('^','**').replace('[','').replace(']',''));
+                            arr.push(vars[vr]+'='+jsexpr(solt[io]));
                         }
                     } else {
-                        arr.push(vars[vr]+'='+sol.replace('^','**').replace('[','').replace(']',''));
+                        arr.push(vars[vr]+'='+jsexpr(sol));
                     }
                 } res = finarr(arr).filter(item => (item.split('=')[1] != '')).filter(item => !(item.includes('i'))).join(',');
             } else {
-                res = eval(expr);
+                with(Math) {
+                    res = eval(expr);
+                }
             }
         }
     } return res;
