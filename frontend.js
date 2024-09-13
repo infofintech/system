@@ -135,23 +135,43 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function bin2hex(bin, offs = 0, rad = 16) {
+function bconv(bin, alpha = '0123456789abcdef') {
+    var alp = alpha.split('');
+    var base = alp.length;
+    var div = bin, quot = 0, rem = 0, res = '';
+    while (div > 0) {
+        quot = Math.floor(div / base);
+        rem = Math.floor(div % base);
+        res = alp[rem] + res;
+        div = quot;
+    } return res;
+}
+function hconv(hex, alpha = '0123456789abcdef') {
+    var alp = alpha.split('');
+    var base = alp.length;
+    var hds = hex.split('').reverse();
+    var res = 0;
+    for (it in hds) {
+        res += alp.indexOf(hds[it]) * base ** it;
+    } return res;
+}
+function bin2hex(bin, offs = 0, alpha = '0123456789abcdef') {
     var res = ''; if (bin != '') {
         var hex = '', pos, off;
         for (i = 0; i < bin.length; i++) {
             pos = Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112);
-            off = pos.toString(rad); hex += off+' ';
+            off = bconv(pos, alpha); hex += off+' ';
         } res = hex.slice(0, -1);
     } else {
         res = '';
     } return res;
 }
-function hex2bin(hex, offs = 0, rad = 16) {
+function hex2bin(hex, offs = 0, alpha = '0123456789abcdef') {
     var res = ''; if (hex != '') {
         var bytes = [], pos, off;
         var str = hex.split(' ');
         for (i = 0; i < str.length; i++) {
-            pos = parseInt(str[i], rad);
+            pos = hconv(str[i], alpha);
             off = Math.abs((pos + 1114112 - Math.abs(offs)) % 1114112);
             bytes.push(off);
         } try {
