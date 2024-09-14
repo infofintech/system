@@ -189,6 +189,13 @@ function sumstr(str) {
         sum += str.codePointAt(i);
     } return sum;
 }
+function obfstr(str) {
+    arr = str.toString().match(/[\s\S]{1,3}/g) || [];
+    var lon = arr.length, ltr = 0, lbr = '';
+    for (i = 0; i < lon; i++) {
+        ltr += parseInt(arr[i], 16);
+    } return ltr;
+}
 function gemstr(str) {
     var sum = sumstr(str);
     var word = sum.toString();
