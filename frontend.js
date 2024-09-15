@@ -167,7 +167,7 @@ function bin2hex(bin, offs = 0, alpha = '0123456789abcdef') {
     } return res;
 }
 function hex2bin(hex, offs = 0, alpha = '0123456789abcdef') {
-    var res = ''; if (hex != '') {
+    var res = ''; if (hex.includes(' ')) {
         var bytes = [], pos, off;
         var str = hex.split(' ');
         for (i = 0; i < str.length; i++) {
