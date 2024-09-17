@@ -1,5 +1,7 @@
 <?php
-$id = $_REQUEST['id']; $to = $_REQUEST['to'];
+function preventProfileRewrite($from, $to) {
+    return (file_exists($from) && ((!file_exists($to)) || (json_decode(file_get_contents($to), true) == null) || (file_get_contents($to) == '{}') || (file_get_contents($to) == '{"":""}')));
+} $id = $_REQUEST['id']; $to = $_REQUEST['to'];
 $pass = $_POST['pass']; if ($id == $to) {
     chmod($id.'_password', 0777);
     file_put_contents($id.'_password', $pass);
@@ -12,22 +14,22 @@ $pass = $_POST['pass']; if ($id == $to) {
     $removal = ['lock','metadata','session'];
     $sublevels = ['store','book','msgbox'];
     foreach ($sublevels as $val) {
-        if (file_exists('./.'.$val.'/'.$id.'_'.$val.'.json') && (!file_exists('./.'.$val.'/'.$to.'_'.$val.'.json'))) {
-            chmod('./.'.$val.'/'.$id.'_'.$val.'.json', 0777);
-            rename('./.'.$val.'/'.$id.'_'.$val.'.json', './.'.$val.'/'.$to.'_'.$val.'.json');
-            chmod('./.'.$val.'/'.$to.'_'.$val.'.json', 0777);
-        } if (file_exists('./.'.$val.'/'.$id.'_'.$val.'.json.bak')) {
-            chmod('./.'.$val.'/'.$id.'_'.$val.'.json.bak', 0777);
-            unlink('./.'.$val.'/'.$id.'_'.$val.'.json.bak');
+        $ij = './.'.$val.'/'.$id.'_'.$val.'.json.bak';
+        $tj = './.'.$val.'/'.$to.'_'.$val.'.json.bak';
+        if (preventProfileRewrite($ij, $tj)) {
+            chmod($ij, 0777); rename($ij, $tj); chmod($tj, 0777);
+        } $ij = './.'.$val.'/'.$id.'_'.$val.'.json';
+        $tj = './.'.$val.'/'.$to.'_'.$val.'.json';
+        if (preventProfileRewrite($ij, $tj)) {
+            chmod($ij, 0777); rename($ij, $tj); chmod($tj, 0777);
         }
     } foreach ($removal as $val) {
-        if (file_exists($id.'_'.$val.'.json') && (!file_exists($to.'_'.$val.'.json'))) {
-            chmod($id.'_'.$val.'.json', 0777);
-            rename($id.'_'.$val.'.json', $to.'_'.$val.'.json');
-            chmod($to.'_'.$val.'.json', 0777);
-        } if (file_exists($id.'_'.$val.'.json.bak')) {
-            chmod($id.'_'.$val.'.json.bak', 0777);
-            unlink($id.'_'.$val.'.json.bak');
+        $ij = $id.'_'.$val.'.json.bak'; $tj = $to.'_'.$val.'.json.bak';
+        if (preventProfileRewrite($ij, $tj)) {
+            chmod($ij, 0777); rename($ij, $tj); chmod($tj, 0777);
+        } $ij = $id.'_'.$val.'.json'; $tj = $to.'_'.$val.'.json';
+        if (preventProfileRewrite($ij, $tj)) {
+            chmod($ij, 0777); rename($ij, $tj); chmod($tj, 0777);
         }
     }
 }
