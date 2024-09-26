@@ -88,7 +88,7 @@ function playMIDI(id) {
 function pauseMIDI() {
     MIDIjs.pause();
 }
-function arr(name, oper, path = '', val = '', bulk = false) {
+function ordarr(name, oper, path = '', val = '', bulk = false) {
     if (window.XMLHttpRequest) {
         xmlhttp=new XMLHttpRequest();
     } else {
