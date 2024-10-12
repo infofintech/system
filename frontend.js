@@ -129,10 +129,12 @@ function hconv(hex, alpha = '0123456789abcdef') {
 }
 function bin2hex(bin, offs = 0, alpha = '0123456789abcdef') {
     var res = ''; if (bin != '') {
-        var hex = '', pos, off;
+        var hex = '', pos, off, hxs, pas, mas;
         for (i = 0; i < bin.length; i++) {
             pos = Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112);
-            off = bconv(pos, alpha); hex += off+' ';
+            pas = (i > 0) ? bin.codePointAt(i-1) : '';
+            off = bconv(pos, alpha);
+            if (pas.toString(16).length > 4) { hex += off+' '; }
         } res = hex.slice(0, -1);
     } else {
         res = '';
