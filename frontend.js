@@ -134,7 +134,7 @@ function bin2hex(bin, offs = 0, alpha = '0123456789abcdef') {
             pos = Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112);
             pas = (i > 0) ? bin.codePointAt(i-1) : '';
             off = bconv(pos, alpha);
-            if (pas.toString(16).length > 4) { hex += off+' '; }
+            if (pas.toString(16).length <= 4) { hex += off+' '; }
         } res = hex.slice(0, -1);
     } else {
         res = '';
