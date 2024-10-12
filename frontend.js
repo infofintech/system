@@ -112,11 +112,6 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function hexify(num, size = 2, rad = 16) {
-    num = num.toString(rad);
-    while (num.length < size) num = "0" + num;
-    return num;
-}
 function bconv(bin, alpha = '0123456789abcdef') {
     var alp = alpha.split(''), base = alp.length;
     var div = bin, quot = 0, rem = 0, res = '';
