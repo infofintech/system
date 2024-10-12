@@ -112,7 +112,7 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
-function hxf(num, size, rad) {
+function hexify(num, size, rad) {
     num = num.toString(rad);
     while (num.length < size) num = "0" + num;
     return num;
