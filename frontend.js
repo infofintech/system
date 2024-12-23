@@ -188,6 +188,13 @@ function day(tx) {
     var day = Math.floor(diff / oneDay);
     return day;
 }
+function today() {
+    var n = new Date();
+    var y = n.getUTCFullYear();
+    var m = n.getUTCMonth();
+    var d = n.getUTCDate();
+    return y+'-'+m+'-'+d;
+}
 function offsetNum(pos = 0, all = 360, off = 90) {
     return Math.abs((pos + all - Math.abs(off)) % all);
 }
