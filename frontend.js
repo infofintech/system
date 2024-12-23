@@ -188,15 +188,16 @@ function day(tx) {
     var day = Math.floor(diff / oneDay);
     return day;
 }
+function offsetNum(pos = 0, all = 360, off = 90) {
+    return Math.abs((pos + all - Math.abs(off)) % all);
+}
 function romanDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
-    var aly = 365 + lep, nwy = 59 + lep;
-    return (dia < nwy) ? (dia+((aly-1)-nwy)) : (dia-(nwy-1));
+    var aly = 365+lep, nwy = 59+lep; return offsetNum(dia, aly, nwy);
 }
 function frenchDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
-    var aly = 364 + lep, nwy = 264 + lep;
-    return (dia < nwy) ? (dia+(aly-nwy)) : (dia-(nwy-1));
+    var aly = 365+lep, nwy = 264+lep; return offsetNum(dia, aly, nwy);
 }
 function arraySearch(needle, haystack) {
     for (key in haystack) {
