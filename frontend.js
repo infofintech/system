@@ -206,7 +206,7 @@ function frenchDay(tx) {
 function frenchDate(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
     var aly = 365+lep, nwy = 263+lep, off = offsetNum(dia, aly, nwy);
-    var clm = (Math.ceil(off/30)-1), cmo = (clm > 11) ? 11 : clm;
+    var clm = (Math.ceil(off/30)-1), cmo = (clm > 12) ? 11 : clm;
     var arr = [ "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor", "Les jours complémentaires" ];
     var sda, smo; if (off < ((aly-1)-(5+lep))) {
         sda = ((off%30) > 0) ? (off%30) : 30;
