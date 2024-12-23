@@ -176,6 +176,18 @@ function gemstr(str) {
         tex = out.toString().split('');
     } return parseInt(tex);
 }
+function leap(yr) {
+    return ((yr % 4 == 0) && (yr % 100 != 0)) || (yr % 400 == 0);
+}
+function day(tx) {
+    var sep = tx.split('-');
+    var now = new Date(sep[0], (sep[1]-1), (sep[2]-1));
+    var start = new Date(sep[0], 0, 0);
+    var diff = now - start;
+    var oneDay = 1000 * 60 * 60 * 24;
+    var day = Math.floor(diff / oneDay);
+    return day;
+}
 function arraySearch(needle, haystack) {
     for (key in haystack) {
         if ((haystack.hasOwnProperty(key)) && (haystack[key] == needle) && (key != needle)) {
