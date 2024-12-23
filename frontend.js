@@ -191,8 +191,8 @@ function day(tx) {
 function today() {
     var n = new Date();
     var y = n.getUTCFullYear();
-    var m = n.getUTCMonth();
-    var d = n.getUTCDate();
+    var m = n.getUTCMonth()+1;
+    var d = n.getUTCDate()+1;
     return y+'-'+m+'-'+d;
 }
 function offsetNum(pos = 0, all = 360, off = 90) {
