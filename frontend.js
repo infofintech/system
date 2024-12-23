@@ -208,8 +208,8 @@ function frenchDate(tx) {
     var aly = 365+lep, nwy = 263+lep, off = offsetNum(dia, aly, nwy);
     var clm = (Math.ceil(off/30)-1);
     var arr = [ "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor", "Les jours complémentaires" ];
-    var sda = (off <= 0) ? 5+lep : (((off%30) > 0) ? (off%30) : 30);
-    var smo = (off <= 0) ? arr[12] : arr[clm];
+    var sda = (off <= 0) ? (5+lep) : (((off%30) > 0) ? (off%30) : 30);
+    var smo = (off <= 0) ? arr[arr.length-1] : arr[clm];
     return sda+' '+smo;
 }
 function arraySearch(needle, haystack) {
