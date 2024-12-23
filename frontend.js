@@ -203,6 +203,17 @@ function frenchDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
     var aly = 365+lep, nwy = 264+lep; return offsetNum(dia, aly, nwy);
 }
+function frenchDate(tx) {
+    var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
+    var aly = 365+lep, nwy = 264+lep, off = offsetNum(dia, aly, nwy);
+    var clm = (Math.ceil(off/30)-1), cmo = (clm > 11) ? 11 : clm;
+    var arr = [ "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor" ];
+    var sda, smo; if (off < ((aly-1)-(5+lep))) {
+        sda = ((off%30) > 0) ? (off%30) : 30;
+    } else {
+        sda = ((off%30) > 0) ? (off%30) : 30;
+    } smo = arr[cmo]; return sda+' '+smo;
+}
 function arraySearch(needle, haystack) {
     for (key in haystack) {
         if ((haystack.hasOwnProperty(key)) && (haystack[key] == needle) && (key != needle)) {
