@@ -190,7 +190,7 @@ function day(tx) {
 }
 function romanDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
-    var aly = 365 + lep, nwy = 58 + lep;
+    var aly = 365 + lep, nwy = 59 + lep;
     return (dia < nwy) ? (dia+(aly-nwy)) : (dia-(nwy-1));
 }
 function frenchDay(tx) {
