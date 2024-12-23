@@ -188,6 +188,16 @@ function day(tx) {
     var day = Math.floor(diff / oneDay);
     return day;
 }
+function romanDay(tx) {
+    var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
+    var aly = 364 + lep, nwy = 58 + lep;
+    return (dia < nwy) ? (dia+(aly-nwy)) : (dia-(nwy-1));
+}
+function frenchDay(tx) {
+    var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
+    var aly = 364 + lep, nwy = 264 + lep;
+    return (dia < nwy) ? (dia+(aly-nwy)) : (dia-(nwy-1));
+}
 function arraySearch(needle, haystack) {
     for (key in haystack) {
         if ((haystack.hasOwnProperty(key)) && (haystack[key] == needle) && (key != needle)) {
