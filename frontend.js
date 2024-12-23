@@ -201,7 +201,7 @@ function rusDay(tx) {
 }
 function frenchDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
-    var aly = 365+lep, nwy = 264+lep; return offsetNum(dia, aly, nwy);
+    var aly = 365+lep, nwy = 263+lep; return offsetNum(dia, aly, nwy);
 }
 function frenchDate(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
