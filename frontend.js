@@ -195,6 +195,10 @@ function romanDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
     var aly = 365+lep, nwy = 59+lep; return offsetNum(dia, aly, nwy);
 }
+function rusDay(tx) {
+    var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
+    var aly = 365+lep, nwy = 143+lep; return offsetNum(dia, aly, nwy);
+}
 function frenchDay(tx) {
     var sep = tx.split('-'), lep = +(leap(sep[0])), dia = day(tx);
     var aly = 365+lep, nwy = 264+lep; return offsetNum(dia, aly, nwy);
