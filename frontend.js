@@ -204,7 +204,7 @@ function now() {
     var n = new Date(); return n.getTime();
 }
 function diffDays(df) {
-    return Math.round(df/(24*60*60*1000));
+    return Math.abs(Math.round(df/(24*60*60*1000)));
 }
 function diffYears(df) {
     return Math.abs(Math.round(df/(365.25*24*60*60*1000)));
