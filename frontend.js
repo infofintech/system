@@ -188,12 +188,26 @@ function day(tx) {
     var day = Math.floor(diff / oneDay);
     return day;
 }
+function time(tx) {
+    var sep = tx.split('-');
+    var now = new Date(sep[0], (sep[1]-1), (sep[2]-1));
+    return now.getTime();
+}
 function today() {
     var n = new Date();
     var y = n.getUTCFullYear();
     var m = n.getUTCMonth()+1;
     var d = n.getUTCDate()+1;
     return y+'-'+m+'-'+d;
+}
+function now() {
+    var n = new Date(); return n.getTime();
+}
+function diffDays(df) {
+    return Math.round(df/(24*60*60*1000));
+}
+function diffYears(df) {
+    return Math.abs(Math.round(df/(365.25*24*60*60*1000)));
 }
 function offsetNum(pos = 0, all = 360, off = 90) {
     return Math.abs((pos + all - Math.abs(off)) % all);
