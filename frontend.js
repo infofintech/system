@@ -197,7 +197,7 @@ function today() {
     var n = new Date();
     var y = n.getUTCFullYear();
     var m = n.getUTCMonth()+1;
-    var d = n.getUTCDate()+1;
+    var d = n.getUTCDate();
     return y+'-'+m+'-'+d;
 }
 function now() {
