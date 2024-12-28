@@ -10,6 +10,9 @@ function jsexpr(source) {
     source = source.replace("]","");
     return source;
 }
+function qt(arg) {
+    return arg.replaceAll('"', '');
+}
 function calc(expr) {
     var res = '', prep, prec, arr = [], rer = [], sol, vars, reg, solt = [];
     nerdamer.set('SOLUTIONS_AS_OBJECT', true); reg = /\b(?:([a-z])(?!\w))+\b/gi;
