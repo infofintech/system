@@ -10,6 +10,9 @@ function jsexpr(source) {
     source=source.replaceAll("]","");
     return source;
 }
+function delimNum(num,delim) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
+}
 function qt(arg) { return arg.replaceAll('"',''); }
 function hhMmSs(ss) {
     hh=pad(Math.floor(ss/3600),-2),ss%=3600;
