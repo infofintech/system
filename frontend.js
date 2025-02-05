@@ -4,6 +4,15 @@ function ucfirst(str) {
 function flip(x) {
     return ((x>1)||(x<0))?0:(1-x);
 }
+function clp(tex='') {
+    var res=''; if (text!='') {
+        try {
+            navigator.clipboard.writeText(tex);res=tex;
+        } catch(error) {
+            console.error(error.message);res=error.message;
+        }
+    } return res;
+}
 function jsexpr(source) {
     source=source.replaceAll("^","**");
     source=source.replaceAll("[","");
