@@ -4,14 +4,24 @@ function ucfirst(str) {
 function flip(x) {
     return ((x>1)||(x<0))?0:(1-x);
 }
-function clp(tex='') {
-    var res=''; if (tex!='') {
+async function clp(cp) {
+    if (navigator.clipboard&&window.isSecureContext) {
+        await navigator.clipboard.writeText(cp);
+    } else {
+        var textArea=document.createElement("textarea");
+        textArea.value=cp;
+        textArea.style.position="absolute";
+        textArea.style.left="-999999px";
+        document.body.prepend(textArea);
+        textArea.select();
         try {
-            navigator.clipboard.writeText(tex);res=tex;
-        } catch(error) {
-            console.error(error.message);res=error.message;
+            document.execCommand('copy');
+        } catch(e) {
+            console.error(e);
+        } finally {
+            textArea.remove();
         }
-    } return res;
+    }
 }
 function jsexpr(source) {
     source=source.replaceAll("^","**");
@@ -168,7 +178,7 @@ function hex2bin(hex,offs=0,alpha='0123456789abcdef') {
             bytes.push(off);
         } try {
             res=String.fromCodePoint.apply(String,bytes);
-        } catch (e) { res=''; }
+        } catch(e) { res=''; }
     } else { res=''; } return res;
 }
 function sumstr(str) {
