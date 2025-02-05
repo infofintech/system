@@ -5,7 +5,7 @@ function flip(x) {
     return ((x>1)||(x<0))?0:(1-x);
 }
 function clp(tex='') {
-    var res=''; if (text!='') {
+    var res=''; if (tex!='') {
         try {
             navigator.clipboard.writeText(tex);res=tex;
         } catch(error) {
