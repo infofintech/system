@@ -215,6 +215,9 @@ function time(tx) {
     var now=new Date(sep[0],(sep[1]-1),(sep[2]-1));
     return now.getTime();
 }
+function timefrom(str) {
+    return Math.round(new Date(str).getTime()/1000);
+}
 function today() {
     var n=new Date();
     var y=n.getUTCFullYear();
