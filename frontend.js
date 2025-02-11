@@ -4,6 +4,14 @@ function ucfirst(str) {
 function flip(x) {
     return ((x>1)||(x<0))?0:(1-x);
 }
+function jsonstr(str) {
+    var res={}; try { res=JSON.parse(str);
+    } catch(e) { res={}; } return res;
+}
+function jsonarr(arr) {
+    var res=''; try { res=JSON.stringify(arr);
+    } catch(e) { res=''; } return res;
+}
 async function clp(cp) {
     if (navigator.clipboard&&window.isSecureContext) {
         await navigator.clipboard.writeText(cp);
