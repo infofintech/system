@@ -218,6 +218,13 @@ function time(tx) {
 function timefrom(str) {
     return Math.round(new Date(str).getTime()/1000);
 }
+function timeto(t) {
+    var n=new Date(t*1000);
+    var y=n.getUTCFullYear();
+    var m=n.getUTCMonth()+1;
+    var d=n.getUTCDate();
+    return y+'-'+m+'-'+d;
+}
 function today() {
     var n=new Date();
     var y=n.getUTCFullYear();
