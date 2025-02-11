@@ -223,7 +223,7 @@ function timeto(t) {
     var y=n.getUTCFullYear();
     var m=n.getUTCMonth()+1;
     var d=n.getUTCDate();
-    return y+'-'+m+'-'+d;
+    return pad(y,-2)+'-'+pad(m,-2)+'-'+pad(d,-2);
 }
 function today() {
     var n=new Date();
