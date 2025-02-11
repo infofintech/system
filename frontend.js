@@ -225,6 +225,22 @@ function timeto(t) {
     var d=n.getUTCDate();
     return pad(y,-2)+'-'+pad(m,-2)+'-'+pad(d,-2);
 }
+function zodiac(t) {
+    var f=timeto(t),d=day(f),r='';
+    if ((d>355)||(d<19)) { r="♑️";
+    } else if ((d>18)&&(d<49)) { r="♒️";
+    } else if ((d>48)&&(d<80)) { r="♓️";
+    } else if ((d>79)&&(d<110)) { r="♈️";
+    } else if ((d>109)&&(d<141)) { r="♉️";
+    } else if ((d>140)&&(d<172)) { r="♊️";
+    } else if ((d>171)&&(d<204)) { r="♋️";
+    } else if ((d>203)&&(d<235)) { r="♌️";
+    } else if ((d>234)&&(d<266)) { r="♍️";
+    } else if ((d>265)&&(d<296)) { r="♎️";
+    } else if ((d>295)&&(d<326)) { r="♏️";
+    } else if ((d>325)&&(d<356)) { r="♐️";
+    } return r;
+}
 function today() {
     var n=new Date();
     var y=n.getUTCFullYear();
