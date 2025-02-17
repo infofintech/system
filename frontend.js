@@ -139,17 +139,17 @@ function hconv(hex,alpha='0123456789abcdef') {
     for (it in hds) { res+=alp.indexOf(hds[it])*base**it; }
     return res;
 }
-function bin2hex(bin,offs=0,alpha='0123456789abcdef') {
-    var res=''; if (bin!='') {
+function bin2hex(bin,offs=0,alpha='0123456789ABCDEF') {
+    var res=''; if ((bin!==undefined)&&(bin!='')) {
         var hex='',pos,off,pas; for (i=0; i<bin.length; i++) {
-            pos=Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112);
-            pas=(i>0)?bin.codePointAt(i-1):''; off=bconv(pos,alpha);
-            if (pas.toString(16).length<=4) { hex+=off+' '; }
+            pos=Math.abs((bin.codePointAt(i)+Math.abs(offs))%1114112),pas=(i>0)?bin.codePointAt(i-1):'',off=bconv(pos,alpha); if (pas.toString(16).length<=4) {
+                hex+=off+' ';
+            }
         } res=hex.slice(0,-1);
     } else { res=''; } return res;
 }
-function hex2bin(hex,offs=0,alpha='0123456789abcdef') {
-    var res=''; if (hex.includes(' ')) {
+function hex2bin(hex,offs=0,alpha='0123456789ABCDEF') {
+    var res=''; if ((hex!==undefined)&&(hex.includes(' '))) {
         var bytes=[],pos,off,str=hex.split(' ');
         for (i=0; i<str.length; i++) {
             pos=hconv(str[i],alpha);
