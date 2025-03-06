@@ -298,6 +298,12 @@ function miniPager(content,key) { var fmla=content.split(/\r?\n/)[key];
 function pager(content,key) { var fmla=content.split(/\r\n\r\n/)[key];
     return (fmla!==undefined)?fmla:'';
 }
+function miniPagerCount(content) { var fmla=content.split(/\r?\n/)[key]
+    return (fmla!==undefined)?fmla.length:'';
+}
+function pagerCount(content) { var fmla=content.split(/\r\n\r\n/)[key];
+    return (fmla!==undefined)?fmla.length:'';
+}
 function countChars(str) {
     return str.replace(/[\u0080-\u10FFFF]/g,"x").length;
 }
