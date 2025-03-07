@@ -286,23 +286,21 @@ function arrkeys(str,y,x) { var arr=str.split(y),arn={};
         arf=arr[i].split(x),arn[arf[0]]=arf[1];
     } return Object.keys(arn);
 }
-function randomImage(list) { var arr=list.split(';'),last=(arr.length-1);
+function randomImage(list) {
+    var arr=list.split(';'),last=(arr.length-1);
     var randNum=Math.floor(Math.random()*last); return arr[randNum];
 }
-function nextImage(list,elem) { var arr=list.split(';'),last=arr.length-1;
+function nextImage(list,elem) {
+    var arr=list.split(';'),last=arr.length-1;
     var index=arr.indexOf(elem),num=(index<last)?(index+1):0; return arr[num];
 }
-function miniPager(content,key) { var fmla=content.split(/\r?\n/)[key];
+function miniPager(content,key) {
+    var fmla=content.split(/\r?\n/)[key];
     return (fmla!==undefined)?fmla:'';
 }
-function pager(content,key) { var fmla=content.split(/\r\n\r\n/)[key];
+function pager(content,key) {
+    var fmla=content.split(/\r\n\r\n/)[key];
     return (fmla!==undefined)?fmla:'';
-}
-function miniPagerCount(content) { var fmla=content.split(/\r?\n/);
-    return (fmla!==undefined)?fmla.length:0;
-}
-function pagerCount(content) { var fmla=content.split("\r\n\r\n");
-    return (fmla!==undefined)?fmla.length:0;
 }
 function countChars(str) {
     return str.replace(/[\u0080-\u10FFFF]/g,"x").length;
