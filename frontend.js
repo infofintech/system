@@ -301,7 +301,7 @@ function pager(content,key) { var fmla=content.split(/\r\n\r\n/)[key];
 function miniPagerCount(content) { var fmla=content.split(/\r?\n/);
     return (fmla!==undefined)?fmla.length:0;
 }
-function pagerCount(content) { var fmla=content.split(/\r\n\r\n/);
+function pagerCount(content) { var fmla=content.split("\r\n\r\n");
     return (fmla!==undefined)?fmla.length:0;
 }
 function countChars(str) {
