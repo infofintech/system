@@ -188,6 +188,10 @@ function time(tx) { var sep=tx.split('-');
     var now=new Date(sep[0],(sep[1]-1),(sep[2]-1));
     return now.getTime();
 }
+function sec(tx) { var sep=tx.split('-');
+    var now=new Date(sep[0],(sep[1]-1),(sep[2]-1));
+    return Math.round(now.getTime()/1000);
+}
 function timefrom(str) { return Math.round(new Date(str).getTime()/1000); }
 function timeto(t) {
     var n=new Date(t*1000); var y=n.getUTCFullYear();
