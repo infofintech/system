@@ -137,8 +137,8 @@ function decbase(bin,alpha='0123456789abcdef') {
     } return res;
 }
 function basedec(hex,alpha='0123456789abcdef') {
-    var alp=alpha.split(''), base=alp.length;
-    var hds=hex.split('').reverse(), res=0;
+    var alp=alpha.split(''),base=alp.length;
+    var hds=hex.split('').reverse(),res=0;
     for (it in hds) { res+=alp.indexOf(hds[it])*base**it; }
     return res;
 }
