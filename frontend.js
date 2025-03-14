@@ -28,12 +28,12 @@ function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
 }
 function quote(arg) { return arg.replaceAll('"',''); }
-function hhMmSs(tt,eh=false) {
-    var hh=mm=ss=0,ih=(tt%3600);
+function hhMmSs(tt,oms=false) {
+    var hh=mm=ss=0,isHour=Math.floor(tt/3600);
     hh=pad(Math.floor(tt/3600),-2);
     tt%=3600,mm=pad(Math.floor(tt/60),-2);
     ss=pad(Math.floor(tt%60),-2);
-    return (eh)?((ih==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
+    return (oms)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function calc(expr) {
     var res='',prep,prec,arr=[],rer=[],sol,vars,solt=[];
