@@ -10,6 +10,9 @@ function arrjson(arr) {
     var res=''; try { res=JSON.stringify(arr);
     } catch(e) { res=''; } return res;
 }
+function rfc3986(str) {  
+    return encodeURIComponent(str).replace(/[!'()*]/g,escape);  
+}
 async function clip(str) {
     if (navigator.clipboard&&window.isSecureContext) {
         await navigator.clipboard.writeText(str);
