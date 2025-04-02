@@ -11,10 +11,8 @@ function arrjson(arr) {
     } catch(e) { res=''; } return res;
 }
 function rfc3986(str) {
-    return encodeURIComponent(str).replace(
-      /[!'()*]/g,
-      (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
-    );
+    return encodeURIComponent(str).replace(/[!'()*]/g,
+    (c)=>`%${c.charCodeAt(0).toString(16).toUpperCase()}`);
 }
 async function clip(str) {
     if (navigator.clipboard&&window.isSecureContext) {
