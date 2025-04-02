@@ -10,9 +10,6 @@ function arrjson(arr) {
     var res=''; try { res=JSON.stringify(arr);
     } catch(e) { res=''; } return res;
 }
-function rfc3986(str) {  
-    return encodeURIComponent(str).replace(/[!'()*]/g,escape);  
-}
 function rfc3986(str) {
     return encodeURIComponent(str).replace(
       /[!'()*]/g,
