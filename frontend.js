@@ -13,6 +13,12 @@ function arrjson(arr) {
 function rfc3986(str) {  
     return encodeURIComponent(str).replace(/[!'()*]/g,escape);  
 }
+function rfc3986(str) {
+    return encodeURIComponent(str).replace(
+      /[!'()*]/g,
+      (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+    );
+}
 async function clip(str) {
     if (navigator.clipboard&&window.isSecureContext) {
         await navigator.clipboard.writeText(str);
