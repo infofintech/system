@@ -26,7 +26,7 @@ async function clip(str) {
     }
 }
 function fixFmla(source) {
-    source=source.replaceAll("^","**"); source=source.replaceAll("[",""),source=source.replaceAll("]","");return source;
+    source=source.replaceAll("^","**"); source=source.replaceAll("[",""),source=source.replaceAll("]","");return math.parse(source);
 }
 function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
