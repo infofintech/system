@@ -40,63 +40,66 @@ function hhMmSs(tt,oms=false) {
     return (oms)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function calc(expr) {
-    var res='',prep,prec,arr=[],rer=[],sol,vars,solt=[];
+    var res='',prep,prec,arr=[],resarr=[],sol='',vars=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
-    var expd=expr;
-    var reg=/[a-zA-Z]{1}/gi;
-    if (expd.includes(';')) {
-        prep=expd.split(';'); for (ib in prep) {
-            if (prep[ib].includes(',')) {
-                prec=prep[ib].split(','); for (ic in prec) {
-                    if (prep[ib].match(reg)!==null) {
-                        vars=finarr(prep[ib].match(reg));
-                        for (vr in vars) {
-                            sol=nerdamer.solve(prec[ic],vars[vr]).toString(); if (sol.includes(',')) {
-                                solt=sol.split(',');
-                                for (io in solt) {
-                                    arr.push(vars[vr]+'='+fixFmla(solt[io]));
+    var reg=/\b(?:([a-z])(?!\w))+\b/gi;
+    if (expr.includes(';')) {
+        prep=expr.split(';'); for (i in prep) {
+            if (prep[i].includes(',')) {
+                prec=prep[i].split(','); for (p in prec) {
+                    if (prep[i].match(reg)!==null) {
+                        vars=finarr(prep[i].match(reg));
+                        for (v in vars) {
+                            sol=nerdamer.solve(prec[p],vars[v]).toString(); if (sol.includes(',')) {
+                                for (s in (sol.split(','))) {
+                                    arr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
                                 }
-                            } else { arr.push(vars[vr]+'='+fixFmla(sol)); }
-                        } rer.push(finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(','));
+                            } else { arr.push(vars[v]+'='+fixFmla(sol)); }
+                        } resarr.push(finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(','));
                     }
                 }
             } else {
-                if (prep[ib].match(reg)!==null) {
-                    vars=finarr(prep[ib].match(reg));
-                    for (vr in vars) {
-                        sol=nerdamer.solve(prep[ib],vars[vr]).toString(); if (sol.includes(',')) {
-                            solt=sol.split(',');
-                            for (io in solt) { arr.push(vars[vr]+'='+fixFmla(solt[io])); }
-                        } else { arr.push(vars[vr]+'='+fixFmla(sol)); }
-                    } rer.push(finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(','));
-                } else { with(Math) { rer.push(eval(prep[ib])); }}
+                if (prep[i].match(reg)!==null) {
+                    vars=finarr(prep[i].match(reg));
+                    for (v in vars) {
+                        sol=nerdamer.solve(prep[i],vars[v]).toString();
+                        if (sol.includes(',')) {
+                            for (s in (sol.split(','))) {
+                                arr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
+                            }
+                        } else { arr.push(vars[v]+'='+fixFmla(sol)); }
+                    } resarr.push(finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(','));
+                } else { with(Math) { resarr.push(eval(prep[i])); }}
             }
-        } res=finarr(rer).join(';');
+        } res=finarr(resarr).join(';');
     } else {
-        if (expd.includes(',')) {
-            prec=expd.split(','); for (ic in prec) {
-                if (expd.match(reg)!==null) {
-                    vars=finarr(expd.match(reg));
-                    for (vr in vars) {
-                        sol=nerdamer.solve(prec[ic],vars[vr]).toString(); if (sol.includes(',')) {
-                            solt=sol.split(',');
-                            for (io in solt) { arr.push(vars[vr]+'='+fixFmla(solt[io])); }
-                        } else { arr.push(vars[vr]+'='+fixFmla(sol)); }
+        if (expr.includes(',')) {
+            prec=expr.split(','); for (p in prec) {
+                if (expr.match(reg)!==null) {
+                    vars=finarr(expr.match(reg));
+                    for (v in vars) {
+                        sol=nerdamer.solve(prec[p],vars[v]).toString();
+                        if (sol.includes(',')) {
+                            for (s in (sol.split(','))) {
+                                arr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
+                            }
+                        } else { arr.push(vars[v]+'='+fixFmla(sol)); }
                     } res=finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
                 }
             }
         } else {
-            if (expd.match(reg)!==null) {
-                vars=finarr(expd.match(reg)); for (vr in vars) {
-                    sol=nerdamer.solve(expd,vars[vr]).toString();
+            if (expr.match(reg)!==null) {
+                vars=finarr(expr.match(reg)); for (v in vars) {
+                    sol=nerdamer.solve(expr,vars[v]).toString();
                     if (sol.includes(',')) {
-                        solt=sol.split(',');
-                        for (io in solt) { arr.push(vars[vr]+'='+fixFmla(solt[io])); }
+                        for (s in (sol.split(','))) {
+                            arr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
+                        }
                     } else {
-                        arr.push(vars[vr]+'='+fixFmla(sol));
+                        arr.push(vars[v]+'='+fixFmla(sol));
                     }
                 } res=finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
-            } else { with(Math) { res=eval(expd); }}
+            } else { with(Math) { res=eval(expr); }}
         }
     } console.log(res); return res;
 }
