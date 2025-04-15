@@ -42,7 +42,7 @@ function hhMmSs(tt,oms=false) {
 function calc(expr) {
     var res='',prep,prec,arr=[],rer=[],sol,vars,solt=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
-    var expd=math.parse(expr);
+    var expd=Math.parse(expr);
     var reg=/\b(?:([a-z])(?!\w))+\b/gi;
     if (expd.includes(';')) {
         prep=expd.split(';'); for (ib in prep) {
