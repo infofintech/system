@@ -26,7 +26,7 @@ async function clip(str) {
     }
 }
 function fixFmla(source) {
-    source=source.replaceAll("^","**"); source=source.replaceAll("[",""),source=source.replaceAll("]","");return math.parse(source);
+    source=source.replaceAll("^","**"); source=source.replaceAll("[",""),source=source.replaceAll("]",""); return source;
 }
 function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
@@ -42,7 +42,7 @@ function hhMmSs(tt,oms=false) {
 function calc(expr) {
     var res='',prep,prec,arr=[],rer=[],sol,vars,solt=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
-    var expd=fixFmla(expr);
+    var expd=math.parse(expr);
     var reg=/\b(?:([a-z])(?!\w))+\b/gi;
     if (expd.includes(';')) {
         prep=expd.split(';'); for (ib in prep) {
