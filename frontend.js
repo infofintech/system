@@ -42,9 +42,10 @@ function hhMmSs(tt,oms=false) {
 function calc(expr) {
     var res='',prep,prec,arr=[],rer=[],sol,vars,solt=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
+    var expd=fixFmla(expr);
     var reg=/\b(?:([a-z])(?!\w))+\b/gi;
-    if (expr.includes(';')) {
-        prep=expr.split(';'); for (ib in prep) {
+    if (expd.includes(';')) {
+        prep=expd.split(';'); for (ib in prep) {
             if (prep[ib].includes(',')) {
                 prec=prep[ib].split(','); for (ic in prec) {
                     if (prep[ib].match(reg)!==null) {
@@ -72,10 +73,10 @@ function calc(expr) {
             }
         } res=finarr(rer).join(';');
     } else {
-        if (expr.includes(',')) {
-            prec=expr.split(','); for (ic in prec) {
-                if (expr.match(reg)!==null) {
-                    vars=finarr(expr.match(reg));
+        if (expd.includes(',')) {
+            prec=expd.split(','); for (ic in prec) {
+                if (expd.match(reg)!==null) {
+                    vars=finarr(expd.match(reg));
                     for (vr in vars) {
                         sol=nerdamer.solve(prec[ic],vars[vr]).toString(); if (sol.includes(',')) {
                             solt=sol.split(',');
@@ -85,9 +86,9 @@ function calc(expr) {
                 }
             }
         } else {
-            if (expr.match(reg)!==null) {
-                vars=finarr(expr.match(reg)); for (vr in vars) {
-                    sol=nerdamer.solve(expr,vars[vr]).toString();
+            if (expd.match(reg)!==null) {
+                vars=finarr(expd.match(reg)); for (vr in vars) {
+                    sol=nerdamer.solve(expd,vars[vr]).toString();
                     if (sol.includes(',')) {
                         solt=sol.split(',');
                         for (io in solt) { arr.push(vars[vr]+'='+fixFmla(solt[io])); }
@@ -95,7 +96,7 @@ function calc(expr) {
                         arr.push(vars[vr]+'='+fixFmla(sol));
                     }
                 } res=finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
-            } else { with(Math) { res=eval(expr); }}
+            } else { with(Math) { res=eval(expd); }}
         }
     } console.log(res); return res;
 }
