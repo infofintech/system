@@ -43,7 +43,7 @@ function calc(expr) {
     var res='',prep,prec,arr=[],rer=[],sol,vars,solt=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
     var expd=Math.parse(expr);
-    var reg=/\b(?:([a-z])(?!\w))+\b/gi;
+    var reg=/[a-zA-Z]{1}/gi;
     if (expd.includes(';')) {
         prep=expd.split(';'); for (ib in prep) {
             if (prep[ib].includes(',')) {
