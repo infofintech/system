@@ -264,6 +264,13 @@ function rand(min,max) {
     return Math.floor(Math.random()*(maxFloored-minCeiled)+minCeiled);
 }
 function isInt(num) { return (Number.isInteger(parseInt(num))); }
+function isNum(num) { return (!isNaN(parseFloat(num))); }
+function notNull(val) {
+    return ((typeof(val)!=='null')&&(typeof(val)!=='undefined'));
+}
+function isLine(val) {
+    return ((typeof(val)!=='null')&&(typeof(val)!=='undefined')&&(typeof(val)!=='object'));
+}
 function onlyUnique(value,index,array) {
     return array.indexOf(value)===index;
 }
