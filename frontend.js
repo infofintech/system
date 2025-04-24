@@ -271,6 +271,9 @@ function notNull(val) {
 function isLine(val) {
     return ((typeof(val)!=='null')&&(typeof(val)!=='undefined')&&(typeof(val)!=='object'));
 }
+function isObject(val) {
+    return ((typeof(val)!=='null')&&(typeof(val)!=='undefined')&&(typeof(val)=='object'));
+}
 function onlyUnique(value,index,array) {
     return array.indexOf(value)===index;
 }
