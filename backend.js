@@ -28,16 +28,6 @@ function set(name,content,bulk=false) {
         }
     }); return false;
 }
-function change(id,to,pass,bulk=false) {
-    var dataString='id='+id+'&to='+to+'&pass='+pass;
-    $.ajax({
-        type: "POST", url: "change.php",
-        data: dataString, cache: false,
-        success: function(html) {
-            if (bulk!==true) { window.location.reload(); }
-        }
-    }); return false;
-}
 function poll(name,select,bulk) {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
