@@ -190,7 +190,9 @@ function gemstr(str) {
         tex=out.toString().split('');
     } return parseInt(tex);
 }
-function leap(yr) { return ((yr%4==0)&&(yr%100!=0))||(yr%400==0); }
+function leap(yr) {
+    return ((yr%4==0)&&(yr%100!=0))||(yr%400==0);
+}
 function day(tx) { var sep=tx.split('-');
     var now=new Date(sep[0],(sep[1]-1),(sep[2]-1));
     var start=new Date(sep[0],0,0);
@@ -205,33 +207,38 @@ function sec(tx) { var sep=tx.split('-');
     var now=new Date(sep[0],(sep[1]-1),(sep[2]-1));
     return Math.round(now.getTime()/1000);
 }
-function timefrom(str) { return Math.round(new Date(str).getTime()/1000); }
-function timeto(t) {
-    var n=new Date(t*1000); var y=n.getUTCFullYear();
-    var m=n.getUTCMonth()+1; var d=n.getUTCDate();
-    return pad(y,-2)+'-'+pad(m,-2)+'-'+pad(d,-2);
+function timefrom(str) {
+    return Math.round(new Date(str).getTime()/1000);
 }
-function zodiac(t) { var f=timeto(t),d=day(f),r='';
-    if ((d>355)||(d<19)) { r="♑️";
-    } else if ((d>18)&&(d<49)) { r="♒️";
-    } else if ((d>48)&&(d<80)) { r="♓️";
-    } else if ((d>79)&&(d<110)) { r="♈️";
-    } else if ((d>109)&&(d<141)) { r="♉️";
-    } else if ((d>140)&&(d<172)) { r="♊️";
-    } else if ((d>171)&&(d<204)) { r="♋️";
-    } else if ((d>203)&&(d<235)) { r="♌️";
-    } else if ((d>234)&&(d<266)) { r="♍️";
-    } else if ((d>265)&&(d<296)) { r="♎️";
-    } else if ((d>295)&&(d<326)) { r="♏️";
-    } else if ((d>325)&&(d<356)) { r="♐️";
-    } return r;
+function timeto(sec) {
+    var td=new Date(sec*1000),yy=td.getUTCFullYear();
+    var mm=td.getUTCMonth()+1,dd=td.getUTCDate();
+    return pad(yy,-2)+'-'+pad(mm,-2)+'-'+pad(dd,-2);
+}
+function zodiac(t) {
+    var f=timeto(t),d=day(f),r='';
+    if ((d>355)||(d<19)) r="♑️";
+    else if ((d>18)&&(d<49)) r="♒️";
+    else if ((d>48)&&(d<80)) r="♓️";
+    else if ((d>79)&&(d<110)) r="♈️";
+    else if ((d>109)&&(d<141)) r="♉️";
+    else if ((d>140)&&(d<172)) r="♊️";
+    else if ((d>171)&&(d<204)) r="♋️";
+    else if ((d>203)&&(d<235)) r="♌️";
+    else if ((d>234)&&(d<266)) r="♍️";
+    else if ((d>265)&&(d<296)) r="♎️";
+    else if ((d>295)&&(d<326)) r="♏️";
+    else if ((d>325)&&(d<356)) r="♐️";
+    return r;
 }
 function today() { var n=new Date();
     var y=n.getUTCFullYear(); var m=n.getUTCMonth()+1;
     var d=n.getUTCDate(); return y+'-'+m+'-'+d;
 }
 function now() { var n=new Date(); return n.getTime(); }
-function diffDays(df) { return Math.abs(Math.round(df/(24*60*60*1000))); }
+function diffDays(df) {
+    return Math.abs(Math.round(df/(24*60*60*1000)));
+}
 function diffYears(df) {
     return Math.abs(Math.round(df/(365.25*24*60*60*1000)));
 }
@@ -263,7 +270,9 @@ function rand(min,max) {
     var minCeiled=Math.ceil(min),maxFloored=Math.floor(max);
     return Math.floor(Math.random()*(maxFloored-minCeiled)+minCeiled);
 }
-function isInt(num) { return (Number.isInteger(parseInt(num))); }
+function isInt(num) {
+    return (Number.isInteger(parseInt(num)));
+}
 function isNum(num) { return (!isNaN(parseFloat(num))); }
 function notNull(val) {
     return ((typeof(val)!=='null')&&(typeof(val)!=='undefined'));
@@ -287,31 +296,24 @@ function numsort(a,b) {
     } else if (isInt(b)) { return 1;
     } else { return a > b ? 1 : -1; }
 }
-function finarr(arr) { return arr.filter(onlyUnique).sort(numsort); }
+function finarr(arr) {
+    return arr.filter(onlyUnique).sort(numsort);
+}
 function arrsum(arr) {
     var res=0; for (i=0; i<arr.length; i++) {
         if (isInt(arr[i])) { res+=parseInt(arr[i]); }
     } return parseInt(res);
 }
-function arrjob(str,y,x) { var arr=str.split(y),arn={};
+function strarr(str,delim=';',equals=':') {
+    var arr=str.split(delim),res={};
     for (i=0; i<arr.length; i++) {
-        arf=arr[i].split(x),arn[arf[0]]=arf[1];
-    } return arn;
+        res[arr[i].split(equals)[0]]=arr[i].split(equals)[1];
+    } return res;
 }
-function arrpack(arr,y,x) { var str='';
-    for (var prop in arr) {
-        str+=prop+x+arr[prop]+y;
+function arrstr(arr,delim=';',equals=':') {
+    var str=''; for (var prop in arr) {
+        str+=prop+equals+arr[prop]+delim;
     } return str;
-}
-function arrvals(str,y,x) { var arr=str.split(y),arn={};
-    for (i=0; i<arr.length; i++) {
-        arf=arr[i].split(x),arn[arf[0]]=arf[1];
-    } return Object.values(arn);
-}
-function arrkeys(str,y,x) { var arr=str.split(y),arn={};
-    for (i=0; i<arr.length; i++) {
-        arf=arr[i].split(x),arn[arf[0]]=arf[1];
-    } return Object.keys(arn);
 }
 function randomImage(list) {
     var arr=list.split(';'),last=(arr.length-1);
