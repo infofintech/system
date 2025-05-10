@@ -91,7 +91,7 @@ function mkdir(name,bulk=false,attr='') {
     }; xmlhttp.open("GET","mkdir.php?name="+name+"&attr="+attr,false);
     xmlhttp.send();
 }
-function move(name,to,bulk=false,attr='') {
+function move(name,dest,bulk=false,attr='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
@@ -101,7 +101,7 @@ function move(name,to,bulk=false,attr='') {
     }; xmlhttp.open("GET","move.php?name="+name+"&dest="+dest+"&attr="+attr,false);
     xmlhttp.send();
 }
-function copy(name,to,bulk=false,attr='') {
+function copy(name,dest,bulk=false,attr='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
