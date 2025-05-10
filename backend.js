@@ -1,25 +1,24 @@
-function get(action,host='',pkg,repo,branch='',user,bulk=false) {
+function get(action='i',host='',pkg,repo,branch='',user,bulk=false) {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { document.location.reload(); }
         }
-    }; xmlhttp.open("GET","get.php?action="+action+"&raw=0&host="+host+"&pkg="+pkg+"&repo="+repo+"&branch="+branch+"&user="+user,false);
+    }; xmlhttp.open("GET","get.php?action="+action+"&attr=&host="+host+"&pkg="+pkg+"&repo="+repo+"&branch="+branch+"&user="+user,false);
     xmlhttp.send();
 }
-function getdir(action,host='',pkg,repo,branch='',user,bulk=false) {
+function getdir(action='i',host='',pkg,repo,branch='',user,bulk=false) {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { document.location.reload(); }
         }
-    }; xmlhttp.open("GET","get.php?action="+action+"&raw=1&host="+host+"&pkg="+pkg+"&repo="+repo+"&branch="+branch+"&user="+user,false);
-    xmlhttp.send();
+    }; xmlhttp.open("GET","get.php?action="+action+"&attr=raw&host="+host+"&pkg="+pkg+"&repo="+repo+"&branch="+branch+"&user="+user,false); xmlhttp.send();
 }
-function set(name,content,bulk=false) {
-    var dataString='name='+name+'&content='+content;
+function set(name,content,bulk=false,attr='') {
+    var dataString='name='+name+'&content='+content+'&attr='+attr;
     $.ajax({
         type: "POST", url: "write.php",
         data: dataString, cache: false,
@@ -42,14 +41,14 @@ function playAudio(obj,name) { obj.src=name; obj.play(); }
 function pauseAudio(obj) { obj.pause(); }
 function playMIDI(id) { MIDIjs.play(id); }
 function pauseMIDI() { MIDIjs.pause(); }
-function ordarr(name,oper,path='',val='',bulk=false) {
+function obj(name,oper,path='',val='',bulk=false) {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { window.location.reload(); }
         }
-    }; xmlhttp.open("GET","arr.php?name="+name+"&oper="+oper+"&path="+encodeURIComponent(path)+"&val="+val,false);
+    }; xmlhttp.open("GET","obj.php?name="+name+"&oper="+oper+"&path="+encodeURIComponent(path)+"&val="+val,false);
     xmlhttp.send();
 }
 function recycle(name,bulk=false) {
@@ -72,43 +71,43 @@ function restore(id,bulk=false) {
     }; xmlhttp.open("GET","restore.php?id="+id,false);
     xmlhttp.send();
 }
-function del(name,bulk=false) {
+function del(name,bulk=false,attr='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { window.location.reload(); }
         }
-    }; xmlhttp.open("GET","delete.php?name="+name,false);
+    }; xmlhttp.open("GET","delete.php?name="+name+"&attr="+attr,false);
     xmlhttp.send();
 }
-function mkdir(name,bulk=false,merge=0) {
+function mkdir(name,bulk=false,attr='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { window.location.reload(); }
         }
-    }; xmlhttp.open("GET","mkdir.php?name="+name+"&merge="+merge,false);
+    }; xmlhttp.open("GET","mkdir.php?name="+name+"&attr="+attr,false);
     xmlhttp.send();
 }
-function move(name,to,bulk=false,merge=0) {
+function move(name,to,bulk=false,attr='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { window.location.reload(); }
         }
-    }; xmlhttp.open("GET","move.php?name="+name+"&to="+to+"&merge="+merge,false);
+    }; xmlhttp.open("GET","move.php?name="+name+"&dest="+dest+"&attr="+attr,false);
     xmlhttp.send();
 }
-function copy(name,to,bulk=false,merge=0) {
+function copy(name,to,bulk=false,attr='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (bulk!==true) { window.location.reload(); }
         }
-    }; xmlhttp.open("GET","copy.php?name="+name+"&to="+to+"&merge="+merge,false);
+    }; xmlhttp.open("GET","copy.php?name="+name+"&dest="+dest+"&attr="+attr,false);
     xmlhttp.send();
 }

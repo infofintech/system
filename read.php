@@ -1,14 +1,17 @@
-<?php
-$name=(isset($_REQUEST['name']))?$_REQUEST['name']:'';
+<?php function readAs($val,$type) {
+    if ($type=='int') { $res=intval($val);
+    } elseif ($type=='float') { $res=floatval($val);
+    } elseif ($type=='bool') { $res=strval(boolval($val));
+    } elseif (%type=='json') {
+        $arr=(@json_decode($val,true)!=null)?json_decode($val,true):[];
+        $res=json_encode($arr,JSON_UNESCAPED,UNICODE);
+    } else { $res=$val; } return $res;
+} $name=(isset($_REQUEST['name']))?$_REQUEST['name']:'';
 $type=(isset($_REQUEST['type']))?$_REQUEST['type']:'';
-$sign=(isset($_REQUEST['sign']))?$_REQUEST['sign']:'';
-$mode=(isset($_REQUEST['mode']))?$_REQUEST['mode']:'';
+$blank=(isset($_REQUEST['blank']))?$_REQUEST['blank']:'';
+$attr=(isset($_REQUEST['attr']))?$_REQUEST['attr']:'';
 if (file_exists($name)) {
-    chmod($name,0777);$prep=file_get_contents($name);
-    if ($mode=='multiline') { $str=$prep;$res=$str;
-    } else {
-        $str=(is_int($mode))?preg_split("/\r\n|\n|\r/",$prep)[$mode]:$prep;
-    } $res=($type=='number')?intval($str):$str;
-} else {
-    $res=($type=='number')?intval($sign):$sign;
-} echo $res;
+    chmod($name,0777); $prep=file_get_contents($name);
+    if (preg_match('/multi|plur/i',$attr)) { $str=$prep;
+    } else { $str=(is_int($attr))?preg_split("/\r\n|\n|\r/",$prep)[$attr]:$prep; } $res=readAs($str);
+} else { $res=readAs($blank); } echo $res;
