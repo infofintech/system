@@ -100,7 +100,7 @@ function calc(expr) {
                 } res=finarr(arr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
             } else { with(Math) { res=eval(expr); }}
         }
-    } console.log(res); return res;
+    } return res;
 }
 function arrmath(input) {
     var arr=mas=res=[]; /* UNION, Logical OR */
