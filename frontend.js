@@ -35,9 +35,7 @@ function removeQuotes(source,type='{}') {
     } return source;
 }
 function trimChars(source) {
-    source=source.replaceAll(source.charAt(0),"");
-    source=source.replaceAll(source.charAt(source.length-1),"");
-    return source;
+    return source.slice(0,-1).slice(1);
 }
 function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
