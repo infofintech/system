@@ -1,7 +1,6 @@
 function ucfirst(str) {
     return (str[0].toUpperCase()+str.slice(1));
 }
-function flip(x) { return ((x>1)||(x<0))?0:(1-x); }
 function jsonarr(str) {
     var res={}; try { res=JSON.parse(str);
     } catch(e) { res={}; } return res;
@@ -270,8 +269,14 @@ function rand(min,max) {
     var minCeiled=Math.ceil(min),maxFloored=Math.floor(max);
     return Math.floor(Math.random()*(maxFloored-minCeiled)+minCeiled);
 }
+function flip(num) {
+    return ((isBit(num))&&(num!=0))?1:0;
+}
 function isInt(num) {
     return (Number.isInteger(parseInt(num)));
+}
+function isBit(num) {
+    return ((isInt(num))&&(num>=0)&&(num<=1));
 }
 function isNum(num) { return (!isNaN(parseFloat(num))); }
 function notNull(val) {
