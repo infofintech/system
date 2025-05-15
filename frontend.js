@@ -34,6 +34,7 @@ function removeQuotes(source,type='{}') {
     } return source;
 }
 function trimChars(source) {
+    console.log(source);
     source=source.replaceAll(source.charAt(0),"");
     source=source.replaceAll(source.charAt(source.length-1),"");
     return source;
