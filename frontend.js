@@ -270,7 +270,7 @@ function rand(min,max) {
     return Math.floor(Math.random()*(maxFloored-minCeiled)+minCeiled);
 }
 function flip(num) {
-    return ((isBit(num))&&(num!=0))?1:0;
+    return ((isBit(num)))?parseInt(1-num):num;
 }
 function isInt(num) {
     return (Number.isInteger(parseInt(num)));
