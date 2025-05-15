@@ -27,6 +27,17 @@ async function clip(str) {
 function fixFmla(source) {
     source=source.replaceAll("^","**"); source=source.replaceAll("[",""),source=source.replaceAll("]",""); return source;
 }
+function removeQuotes(source,type='{}') {
+    if (type.length==2) {
+        source=source.replaceAll(type.charAt(0),"");
+        source=source.replaceAll(type.charAt(1),"");
+    } return source;
+}
+function trimChars(source) {
+    source=source.replaceAll(source.charAt(0),"");
+    source=source.replaceAll(source.charAt(source.length-1),"");
+    return source;
+}
 function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
 }
