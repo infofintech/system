@@ -27,16 +27,6 @@ async function clip(str) {
 function fixFmla(source) {
     source=source.replaceAll("^","**"); source=source.replaceAll("[",""),source=source.replaceAll("]",""); return source;
 }
-function removeQuotes(source,type='{}') {
-    var mode=type.toString();
-    if (mode.length==2) {
-        source=source.replaceAll(mode.charAt(0),"");
-        source=source.replaceAll(mode.charAt(1),"");
-    } return source;
-}
-function trimChars(source) {
-    return source.slice(0,-1).slice(1);
-}
 function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
 }
