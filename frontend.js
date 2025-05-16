@@ -39,103 +39,55 @@ function hhmmss(num,omitHours=false) {
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function calc(expr) {
-    var res=sol=prep=fmla='',prepArr=calcArr=resArr=vars=[];
-    nerdamer.set('SOLUTIONS_AS_OBJECT',true);
+    return equationSystem(expr);
+}
+function equationSystem(expr) {
+    var arr=sys=[],res='';
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
-    if (expr.includes(';')) {
-        prepArr=expr.split(';'); for (i in prepArr) {
-            if (prepArr[i].includes(',')) {
-                for (p in (prepArr[i].split(','))) {
-                    if (prepArr[i].match(varsRegex)!==null) {
-                        vars=finarr(prepArr[i].match(varsRegex));
-                        for (v in vars) {
-                            sol=nerdamer.solve(prepArr[i].split(',')[p],vars[v]).toString(); if (sol.includes(',')) {
-                                for (s in (sol.split(','))) {
-                                    if ((fixFmla(sol.split(',')[s])!='')&&(!(sol.split(',').includes(s)))) {
-                                        calcArr.push(vars[v]+'='+fixFmla(sol.split(',')[s]));
-                                    }
-                                }
-                            } else {
-                                if (fixFmla(sol)!='') {
-                                    calcArr.push(vars[v]+'='+fixFmla(sol));
-                                }
-                            }
-                        } if (!(resArr.includes(finarr(calcArr).join(',')))) { resArr.push(finarr(calcArr).join(',')); }
-                    } else {
-                        with(Math) {
-                            if (!(resArr.includes(eval(prepArr[i].split(',')[p])))) { resArr.push(eval(prepArr[i].split(',')[p])); }
-                        }
-                    }
+    if (expr.includes(',')) {
+        sys=expr.split(',');
+        for (i in sys) {
+            if (expr.match(varsRegex)!==null) {
+                if (!(arr.includes(solutions(expr)))) {
+                    arr.push(solutions(expr));
                 }
             } else {
-                if (prepArr[i].match(varsRegex)!==null) {
-                    vars=finarr(prepArr[i].match(varsRegex));
-                    for (v in vars) {
-                        sol=nerdamer.solve(prepArr[i],vars[v]).toString();
-                        if (sol.includes(',')) {
-                            for (s in (sol.split(','))) {
-                                if ((fixFmla(sol.split(',')[s])!='')&&(!(sol.split(',').includes(s)))) {
-                                    calcArr.push(vars[v]+'='+fixFmla(sol.split(',')[s]));
-                                }
-                            }
-                        } else {
-                            if (fixFmla(sol)) {
-                                calcArr.push(vars[v]+'='+fixFmla(sol));
-                            }
-                        }
-                    } if (!(resArr.includes(finarr(calcArr).join(',')))) { resArr.push(finarr(calcArr).join(',')); }
-                } else {
-                    with(Math) {
-                        if (!(resArr.includes(resArr.push(eval(prepArr[i]))))) { resArr.push(resArr.push(eval(prepArr[i]))); }
+                with(Math) {
+                    if (!(arr.includes(eval(sys[i])))) {
+                        arr.push(eval(sys[i]));
                     }
                 }
             }
-        } res=finarr(resArr).join(';');
+        } res=finarr(arr).join(',');
     } else {
-        if (expr.includes(',')) {
-            for (p in (expr.split(','))) {
-                if (expr.match(varsRegex)!==null) {
-                    vars=finarr(expr.match(varsRegex));
-                    for (v in vars) {
-                        sol=nerdamer.solve(expr.split(',')[p],vars[v]).toString(); if (sol.includes(',')) {
-                            for (s in (sol.split(','))) {
-                                if ((fixFmla(fmla=sol.split(',')[s])!='')&&(!(fmla=sol.split(',').includes(s)))) {
-                                    calcArr.push(vars[v]+'='+fixFmla(fmla=sol.split(',')[s]));
-                                }
-                            }
-                        } else {
-                            if (fixFmla(sol)) {
-                                calcArr.push(vars[v]+'='+fixFmla(sol));
-                            }
-                        }
-                    } resArr=finarr(calcArr);
-                } else {
-                    with(Math) {
-                        if (!(resArr.includes(eval(expr.split(',')[p])))) {
-                            resArr.push();
-                        }
+        if (expr.match(varsRegex)!==null) {
+            res=solutions(expr);
+        } else { with(Math) { res=eval(expr); }}
+    } return res;
+}
+function solutions(expr) {
+    var arr=vars=sols=[],sol=tesl=tesr=res='';
+    nerdamer.set('SOLUTIONS_AS_OBJECT',true);
+    var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
+    if (expr.match(varsRegex)!==null) {
+        vars=finarr(expr.match(varsRegex));
+        for (i in vars) {
+            sol=nerdamer.solve(expr,vars[i]).toString();
+            if (sol.includes(',')) {
+                sols=sol.split(',');
+                tesl=vars[i],tesr=fixFmla(sols[j]);
+                for (j in sols) {
+                    if ((tesr!='')&&(!(arr.includes(tesl+'='+tesr)))) {
+                        arr.push(tesl+'='+tesr);
                     }
                 }
-            } res=finarr(resArr).join(',');
-        } else {
-            if (expr.match(varsRegex)!==null) {
-                vars=finarr(expr.match(varsRegex));
-                for (v in vars) {
-                    sol=nerdamer.solve(expr,vars[v]).toString();
-                    if (sol.includes(',')) {
-                        for (s in (sol.split(','))) {
-                            if ((fixFmla(sol.split(',')[s])!='')&&(!(sol.split(',').includes(s)))) {
-                                calcArr.push(vars[v]+'='+fixFmla(sol.split(',')[s]));
-                            }
-                        }
-                    } else {
-                        if (fixFmla(sol)!='') {
-                            calcArr.push(vars[v]+'='+fixFmla(sol));
-                        }
-                    }
-                } res=finarr(calcArr).join(',');
-            } else { with(Math) { res=eval(expr); }}
-        }
+            } else {
+                tesl=vars[i],tesr=fixFmla(sol);
+                if ((tesr!='')&&(!(arr.includes(tesl+'='+tesr)))) {
+                    arr.push(tesl+'='+tesr);
+                }
+            }
+        } res=finarr(arr).join(',');
     } return res;
 }
 function arrmath(input) {
