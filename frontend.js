@@ -51,9 +51,8 @@ function calc(expr) {
                         for (v in vars) {
                             sol=nerdamer.solve(prepArr[i].split(',')[p],vars[v]).toString(); if (sol.includes(',')) {
                                 for (s in (sol.split(','))) {
-                                    fmla=sol.split(',')[s];
-                                    if (fixFmla(fmla)!='') {
-                                        calcArr.push(vars[v]+'='+fixFmla(fmla));
+                                    if ((fixFmla(sol.split(',')[s])!='')&&(!(sol.split(',').includes(s)))) {
+                                        calcArr.push(vars[v]+'='+fixFmla(sol.split(',')[s]));
                                     }
                                 }
                             } else {
@@ -61,10 +60,10 @@ function calc(expr) {
                                     calcArr.push(vars[v]+'='+fixFmla(sol));
                                 }
                             }
-                        } prep=finarr(calcArr).join(',');
+                        } resArr(finarr(calcArr).join(','));
                     } else {
                         with(Math) {
-                            prep=eval(prepArr[i].split(',')[p]);
+                            resArr(eval(prepArr[i].split(',')[p]));
                         }
                     }
                 }
@@ -75,9 +74,8 @@ function calc(expr) {
                         sol=nerdamer.solve(prepArr[i],vars[v]).toString();
                         if (sol.includes(',')) {
                             for (s in (sol.split(','))) {
-                                fmla=sol.split(',')[s];
-                                if (fixFmla(fmla)!='') {
-                                    calcArr.push(vars[v]+'='+fixFmla(fmla));
+                                if ((fixFmla(sol.split(',')[s])!='')&&(!(sol.split(',').includes(s)))) {
+                                    calcArr.push(vars[v]+'='+fixFmla(sol.split(',')[s]));
                                 }
                             }
                         } else {
@@ -85,9 +83,13 @@ function calc(expr) {
                                 calcArr.push(vars[v]+'='+fixFmla(sol));
                             }
                         }
-                    } prep=finarr(calcArr).join(',');
-                } else { with(Math) { prep=eval(prepArr[i]); }}
-            } resArr.push(prep);
+                    } resArr.push(finarr(calcArr).join(','));
+                } else {
+                    with(Math) {
+                        resArr.push(eval(prepArr[i]));
+                    }
+                }
+            }
         } res=finarr(resArr).join(';');
     } else {
         if (expr.includes(',')) {
@@ -97,9 +99,8 @@ function calc(expr) {
                     for (v in vars) {
                         sol=nerdamer.solve(expr.split(',')[p],vars[v]).toString(); if (sol.includes(',')) {
                             for (s in (sol.split(','))) {
-                                fmla=sol.split(',')[s];
-                                if (fixFmla(fmla)!='') {
-                                    calcArr.push(vars[v]+'='+fixFmla(fmla));
+                                if ((fixFmla(fmla=sol.split(',')[s])!='')&&(!(fmla=sol.split(',').includes(s)))) {
+                                    calcArr.push(vars[v]+'='+fixFmla(fmla=sol.split(',')[s]));
                                 }
                             }
                         } else {
@@ -114,15 +115,13 @@ function calc(expr) {
             } res=finarr(resArr).join(',');
         } else {
             if (expr.match(varsRegex)!==null) {
-                console.log(varsRegex);
                 vars=finarr(expr.match(varsRegex));
                 for (v in vars) {
                     sol=nerdamer.solve(expr,vars[v]).toString();
                     if (sol.includes(',')) {
                         for (s in (sol.split(','))) {
-                            fmla=sol.split(',')[s];
-                            if (fixFmla(fmla)!='') {
-                                calcArr.push(vars[v]+'='+fixFmla(fmla));
+                            if ((fixFmla(sol.split(',')[s])!='')&&(!(sol.split(',').includes(s)))) {
+                                calcArr.push(vars[v]+'='+fixFmla(sol.split(',')[s]));
                             }
                         }
                     } else {
