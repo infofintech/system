@@ -60,10 +60,10 @@ function calc(expr) {
                                     calcArr.push(vars[v]+'='+fixFmla(sol));
                                 }
                             }
-                        } resArr.push(finarr(calcArr).join(','));
+                        } if (!(resArr.includes(finarr(calcArr).join(',')))) { resArr.push(finarr(calcArr).join(',')); }
                     } else {
                         with(Math) {
-                            resArr.push(eval(prepArr[i].split(',')[p]));
+                            if (!(resArr.includes(eval(prepArr[i].split(',')[p])))) { resArr.push(eval(prepArr[i].split(',')[p])); }
                         }
                     }
                 }
@@ -83,10 +83,10 @@ function calc(expr) {
                                 calcArr.push(vars[v]+'='+fixFmla(sol));
                             }
                         }
-                    } resArr.push(finarr(calcArr).join(','));
+                    } if (!(resArr.includes(finarr(calcArr).join(',')))) { resArr.push(finarr(calcArr).join(',')); }
                 } else {
                     with(Math) {
-                        resArr.push(eval(prepArr[i]));
+                        if (!(resArr.includes(resArr.push(eval(prepArr[i]))))) { resArr.push(resArr.push(eval(prepArr[i]))); }
                     }
                 }
             }
@@ -110,7 +110,11 @@ function calc(expr) {
                         }
                     } resArr=finarr(calcArr);
                 } else {
-                    with(Math) { resArr.push(eval(expr.split(',')[p])); }
+                    with(Math) {
+                        if (!(resArr.includes(eval(expr.split(',')[p])))) {
+                            resArr.push();
+                        }
+                    }
                 }
             } res=finarr(resArr).join(',');
         } else {
