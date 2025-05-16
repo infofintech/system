@@ -57,8 +57,8 @@ function equationSystem(expr) {
     var arr=sys=[],res='';
     if (expr.includes(';')) {
         sys=expr.split(';');
-        for (i in sys) {
-            arr.push(equation(sys[i]));
+        for (idx in sys) {
+            arr.push(equation(sys[idx]));
         } res=finarr(arr).join(';');
     } else {
         res=equation(expr);
