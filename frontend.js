@@ -56,7 +56,7 @@ function calc(expr) {
                             } else {
                                 calcArr.push(vars[v]+'='+fixFmla(sol));
                             }
-                        } resArr.push(finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(','));
+                        } resArr.push(finarr(calcArr).join(','));
                     } else {
                         with(Math) {
                             resArr.push(eval(prepArr[i].split(',')[p]));
