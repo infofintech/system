@@ -39,7 +39,7 @@ function hhmmss(num,omitHours=false) {
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function fixEq(arr) {
-    var res=[]; console.log(arr) for (it in arr) {
+    var res=[]; console.log(arr); for (it in arr) {
         console.log(arr[it]);
         if ((arr[it].includes('='))&&(arr[it].split('=').length==2)) {
             if ((arr[it].split('=')[0]!='')||(arr[it].split('=')[1]!='')) {
