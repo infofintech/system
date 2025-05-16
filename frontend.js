@@ -84,7 +84,7 @@ function solutions(expr) {
             } else {
                 tesl=vars[i],tesr=fixFmla(sol);
                 if ((tesr!='')&&(!(arr.includes(tesl+'='+tesr)))) {
-                    arr.push(tesl+'='+tesr);
+                    arr.push(((vars.length>1)?(tesl+'='):'')+tesr);
                 }
             }
         } res=finarr(arr).join(',');
