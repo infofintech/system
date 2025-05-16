@@ -40,6 +40,7 @@ function hhmmss(num,omitHours=false) {
 }
 function fixEq(arr) {
     var res=[]; for (it in arr) {
+        console.log(arr[it]);
         if ((arr[it].includes('='))&&(arr[it].split('=').length==2)) {
             if ((arr[it].split('=')[0]!='')||(arr[it].split('=')[1]!='')) {
                 res.push(arr[it]);
