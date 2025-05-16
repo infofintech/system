@@ -42,7 +42,7 @@ function fixEq(arr) {
     var res=[],str=''; for (it in arr) {
         str=arr[it].toString();
         if ((str.includes('='))&&(str.split('=').length==2)) {
-            if ((str.split('=')[0]!='')||(str.split('=')[1]!='')) {
+            if (str.split('=')[1]!='') {
                 res.push(str);
             }
         }
