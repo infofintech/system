@@ -148,6 +148,12 @@ function pad(num,offs) {
         } else { nat=alp; alp=alp+'.'; for (i=ab; i>0; i--) alp=alp+'0'; }
     } return alp;
 }
+function gen(len=4,alpha='0123456789') {
+    var alp=alpha.split(''),base=alp.length;
+    var res=''; for (i=0; i<len; i++) {
+        res+=(alp[rand(0,base-1)]).toString();
+    } return res;
+}
 function decbase(bin,alpha='0123456789abcdef') {
     var alp=alpha.split(''),base=alp.length;
     var div=bin,quot=rem=0,res='';while (div>0) {
