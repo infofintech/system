@@ -60,10 +60,10 @@ function calc(expr) {
                                     calcArr.push(vars[v]+'='+fixFmla(sol));
                                 }
                             }
-                        } resArr(finarr(calcArr).join(','));
+                        } resArr.push(finarr(calcArr).join(','));
                     } else {
                         with(Math) {
-                            resArr(eval(prepArr[i].split(',')[p]));
+                            resArr.push(eval(prepArr[i].split(',')[p]));
                         }
                     }
                 }
