@@ -56,10 +56,10 @@ function calc(expr) {
                             } else {
                                 calcArr.push(vars[v]+'='+fixFmla(sol));
                             }
-                        } resArr.push(finarr(calcArr).join(','));
+                        } prep=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).join(',');
                     } else {
                         with(Math) {
-                            resArr.push(eval(prepArr[i].split(',')[p]));
+                            prep=eval(prepArr[i].split(',')[p]);
                         }
                     }
                 }
@@ -73,9 +73,9 @@ function calc(expr) {
                                 calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
                             }
                         } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                    } resArr.push(finarr(calcArr).join(','));
-                } else { with(Math) { resArr.push(eval(prepArr[i])); }}
-            }
+                    } prep=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).join(',');
+                } else { with(Math) { prep=eval(prepArr[i]); }}
+            } resArr.push(prep);
         } res=finarr(resArr).join(';');
     } else {
         if (expr.includes(',')) {
