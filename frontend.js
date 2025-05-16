@@ -38,31 +38,19 @@ function hhmmss(num,omitHours=false) {
     ss=pad(Math.floor(num%60),-2);
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
-function calc(expr) {
-    return arrayCalc(expr);
-}
-function arrayCalc(expr) {
-    var arr=sys=[],res='';
-    var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
-    if (expr.includes(';')) {
-        sys=expr.split(';');
-        for (i in sys) {
-            if (sys[i].match(varsRegex)!==null) {
-                if (!(arr.includes(equationSystem(sys[i])))) {
-                    arr.push(equationSystem(sys[i]));
-                }
-            } else {
-                with(Math) {
-                    if (!(arr.includes(eval(sys[i])))) {
-                        arr.push(eval(sys[i]));
-                    }
-                }
-            }
-        } res=finarr(arr).join(';');
+function calc(input) {
+    res='',arg=[]; if ((input.includes('|'))||(input.includes('&'))||(input.includes('~'))||(input.includes('^'))) {
+        res=finarr(arrmath(input)).join(';');
+    } else if (input.includes('#')) {
+        if (input.endsWith('*')) {
+            arg=input.slice(0,-1).split('#');
+            res=basedec(arg[0],arg[1])+'#'+arg[1];
+        } else {
+            arg=input.split('#');
+            res=decbase(arg[0],arg[1])+'#'+arg[1];
+        }
     } else {
-        if (expr.match(varsRegex)!==null) {
-            res=equationSystem(expr);
-        } else { with(Math) { res=eval(expr); }}
+        res=equationSystem(expr);
     } return res;
 }
 function equationSystem(expr) {
@@ -115,7 +103,8 @@ function solutions(expr) {
     } return res;
 }
 function arrmath(input) {
-    var arr=mas=res=[]; /* UNION, Logical OR */
+    var arr=mas=res=[];
+    /* UNION, Logical OR */
     if (input.includes('|')) {
         arr=input.split('|'); for (el in arr) {
             mas=arr[el].split(','); res=(el==0)?mas:res.concat(mas);
