@@ -39,7 +39,31 @@ function hhmmss(num,omitHours=false) {
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function calc(expr) {
-    return equationSystem(expr);
+    return arrayCalc(expr);
+}
+function arrayCalc(expr) {
+    var arr=sys=[],res='';
+    var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
+    if (expr.includes(';')) {
+        sys=expr.split(';');
+        for (i in sys) {
+            if (sys[i].match(varsRegex)!==null) {
+                if (!(arr.includes(equationSystem(sys[i])))) {
+                    arr.push(equationSystem(sys[i]));
+                }
+            } else {
+                with(Math) {
+                    if (!(arr.includes(eval(sys[i])))) {
+                        arr.push(eval(sys[i]));
+                    }
+                }
+            }
+        } res=finarr(arr).join(';');
+    } else {
+        if (expr.match(varsRegex)!==null) {
+            res=equationSystem(expr);
+        } else { with(Math) { res=eval(expr); }}
+    } return res;
 }
 function equationSystem(expr) {
     var arr=sys=[],res='';
