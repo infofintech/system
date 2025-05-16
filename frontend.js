@@ -48,8 +48,8 @@ function equationSystem(expr) {
         sys=expr.split(',');
         for (i in sys) {
             if (expr.match(varsRegex)!==null) {
-                if (!(arr.includes(solutions(expr)))) {
-                    arr.push(solutions(expr));
+                if (!(arr.includes(solutions(sys[i])))) {
+                    arr.push(solutions(sys[i]));
                 }
             } else {
                 with(Math) {
@@ -66,7 +66,6 @@ function equationSystem(expr) {
     } return res;
 }
 function solutions(expr) {
-    console.log(expr);
     var arr=vars=sols=[],sol=tesl=tesr=res='';
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
