@@ -75,8 +75,8 @@ function solutions(expr) {
             sol=nerdamer.solve(expr,vars[i]).toString();
             if (sol.includes(',')) {
                 sols=sol.split(',');
-                tesl=vars[i],tesr=fixFmla(sols[j]);
                 for (j in sols) {
+                    tesl=vars[i],tesr=fixFmla(sols[j]);
                     if ((tesr!='')&&(!(arr.includes(tesl+'='+tesr)))) {
                         arr.push(tesl+'='+tesr);
                     }
