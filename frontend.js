@@ -58,9 +58,9 @@ function equationSystem(expr) {
     if (expr.includes(';')) {
         sys=expr.split(';');
         console.log(sys);
-        for (i=0; i<sys.length; i++) {
-            arr.push(equation(sys[i]));
-        } res=finarr(arr).join(';');
+        arr=sys.map((x)=>equation(x));
+        console.log(arr);
+        res=finarr(arr).join(';');
     } else {
         res=equation(expr);
     } return res;
