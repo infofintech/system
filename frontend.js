@@ -44,7 +44,7 @@ function calc(input) {
     } else if (input.includes('#')) {
         if (input.endsWith('*')) {
             arg=input.slice(0,-1).split('#');
-            res=basedec(arg[0],arg[1])+'#'+arg[1];
+            res=basedec(arg[0],arg[1])+'#'+arg[1]+'*';
         } else {
             arg=input.split('#');
             res=decbase(arg[0],arg[1])+'#'+arg[1];
