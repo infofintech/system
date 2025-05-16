@@ -81,23 +81,18 @@ function calc(expr) {
     } else {
         if (expr.includes(',')) {
             for (p in (expr.split(','))) {
-                if (expr.split(',')[p].match(wordsRegex)!==null) {
-                    resArr.push(expr.split(',')[p]);
+                if (expr.match(varsRegex)!==null) {
+                    vars=finarr(expr.match(varsRegex));
+                    for (v in vars) {
+                        sol=nerdamer.solve(expr.split(',')[p],vars[v]).toString(); if (sol.includes(',')) {
+                            for (s in (sol.split(','))) {
+                                calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
+                            }
+                        } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
+                    } resArr=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i')));
                 } else {
-                    if (expr.match(varsRegex)!==null) {
-                        vars=finarr(expr.split(',')[p].match(varsRegex));
-                        for (v in vars) {
-                            sol=nerdamer.solve(expr.split(',')[p],vars[v]).toString();
-                            if (sol.includes(',')) {
-                                for (s in (sol.split(','))) {
-                                    calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
-                                }
-                            } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                        } resArr=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i')));
-                    } else {
-                        with(Math) {
-                            resArr.push(eval(expr.split(',')[p]));
-                        }
+                    with(Math) {
+                        resArr.push(eval(expr.split(',')[p]));
                     }
                 }
             } res=finarr(resArr).join(',');
