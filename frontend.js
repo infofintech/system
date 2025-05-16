@@ -39,7 +39,7 @@ function hhmmss(num,omitHours=false) {
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function calc(expr) {
-    var res=sol='',prepArr=calcArr=resArr=vars=[];
+    var res=sol=prep='',prepArr=calcArr=resArr=vars=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
     if (expr.includes(';')) {
@@ -73,7 +73,7 @@ function calc(expr) {
                                 calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
                             }
                         } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                    } resArr.push(finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(','));
+                    } resArr.push(finarr(calcArr).join(','));
                 } else { with(Math) { resArr.push(eval(prepArr[i])); }}
             }
         } res=finarr(resArr).join(';');
