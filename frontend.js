@@ -86,7 +86,7 @@ function calc(expr) {
                     } prep=fixEq(finarr(calcArr)).join(',');
                 } else { with(Math) { prep=eval(prepArr[i]); }}
             } resArr.push(prep);
-        } res=finarr(resArr).join(';');
+        } res=fixEq(finarr(resArr)).join(';');
     } else {
         if (expr.includes(',')) {
             for (p in (expr.split(','))) {
@@ -102,7 +102,7 @@ function calc(expr) {
                 } else {
                     with(Math) { resArr.push(eval(expr.split(',')[p])); }
                 }
-            } res=finarr(resArr).join(',');
+            } res=fixEq(finarr(resArr)).join(',');
         } else {
             if (expr.match(varsRegex)!==null) {
                 console.log(varsRegex);
