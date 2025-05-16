@@ -57,18 +57,14 @@ function equationSystem(expr) {
     var arr=sys=[],res='';
     if (expr.includes(';')) {
         sys=expr.split(';');
-        console.log(sys);
         arr=sys.map((x)=>equation(x));
-        console.log(arr);
         res=finarr(arr).join(';');
-    } else {
-        res=equation(expr);
-    } return res;
+    } else { res=equation(expr); }
+    return res;
 }
 function equation(expr) {
     var arr=sys=[],res='';
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
-    console.log(expr);
     if (expr.includes(',')) {
         sys=expr.split(',');
         for (i in sys) {
