@@ -38,6 +38,15 @@ function hhmmss(num,omitHours=false) {
     ss=pad(Math.floor(num%60),-2);
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
+function fixEq(arr) {
+    var res=[]; for (it in arr) {
+        if ((arr[it].includes('='))&&(arr[it].split('=').length==2)) {
+            if ((arr[it].split('=')[0]!='')||(arr[it].split('=')[1]!='')) {
+                res.push(arr[it]);
+            }
+        }
+    } return res;
+}
 function calc(expr) {
     var res=sol=prep='',prepArr=calcArr=resArr=vars=[];
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
@@ -56,7 +65,7 @@ function calc(expr) {
                             } else {
                                 calcArr.push(vars[v]+'='+fixFmla(sol));
                             }
-                        } prep=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).join(',');
+                        } prep=fixEq(finarr(calcArr)).join(',');
                     } else {
                         with(Math) {
                             prep=eval(prepArr[i].split(',')[p]);
@@ -73,7 +82,7 @@ function calc(expr) {
                                 calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
                             }
                         } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                    } prep=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).join(',');
+                    } prep=fixEq(finarr(calcArr)).join(',');
                 } else { with(Math) { prep=eval(prepArr[i]); }}
             } resArr.push(prep);
         } res=finarr(resArr).join(';');
@@ -88,7 +97,7 @@ function calc(expr) {
                                 calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
                             }
                         } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                    } resArr=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i')));
+                    } resArr=fixEq(finarr(calcArr));
                 } else {
                     with(Math) { resArr.push(eval(expr.split(',')[p])); }
                 }
@@ -104,7 +113,7 @@ function calc(expr) {
                             calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
                         }
                     } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                } res=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
+                } res=fixEq(finarr(calcArr)).join(',');
             } else { with(Math) { res=eval(expr); }}
         }
     } return res;
