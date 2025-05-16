@@ -102,21 +102,18 @@ function calc(expr) {
                 }
             } res=finarr(resArr).join(',');
         } else {
-            if (expr.match(wordsRegex)!==null) { res=expr;
-            } else {
-                if (expr.match(varsRegex)!==null) {
-                    console.log(varsRegex);
-                    vars=finarr(expr.match(varsRegex));
-                    for (v in vars) {
-                        sol=nerdamer.solve(expr,vars[v]).toString();
-                        if (sol.includes(',')) {
-                            for (s in (sol.split(','))) {
-                                calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
-                            }
-                        } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
-                    } res=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
-                } else { with(Math) { res=eval(expr); }}
-            }
+            if (expr.match(varsRegex)!==null) {
+                console.log(varsRegex);
+                vars=finarr(expr.match(varsRegex));
+                for (v in vars) {
+                    sol=nerdamer.solve(expr,vars[v]).toString();
+                    if (sol.includes(',')) {
+                        for (s in (sol.split(','))) {
+                            calcArr.push(vars[v]+'='+fixFmla((sol.split(','))[s]));
+                        }
+                    } else { calcArr.push(vars[v]+'='+fixFmla(sol)); }
+                } res=finarr(calcArr).filter(item=>(item.split('=')[1]!='')).filter(item=>!(item.includes('i'))).join(',');
+            } else { with(Math) { res=eval(expr); }}
         }
     } return res;
 }
