@@ -67,6 +67,7 @@ function equationSystem(expr) {
 function equation(expr) {
     var arr=sys=[],res='';
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
+    console.log(expr);
     if (expr.includes(',')) {
         sys=expr.split(',');
         for (i in sys) {
