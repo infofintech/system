@@ -66,6 +66,7 @@ function equationSystem(expr) {
     } return res;
 }
 function solutions(expr) {
+    console.log(expr);
     var arr=vars=sols=[],sol=tesl=tesr=res='';
     nerdamer.set('SOLUTIONS_AS_OBJECT',true);
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
