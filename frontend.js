@@ -26,7 +26,7 @@ async function clip(str) {
 }
 function fixFmla(str) {
     var res=str.replaceAll("^","**").replaceAll("[","").replaceAll("]","");
-    return (res.endsWith('='))?0:res;
+    return (res=='')?0:res;
 }
 function delimNum(num,delim) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
