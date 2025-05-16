@@ -50,7 +50,7 @@ function calc(input) {
             res=decbase(arg[0],arg[1])+'#'+arg[1];
         }
     } else {
-        res=equationSystem(expr);
+        res=equationSystem(input);
     } return res;
 }
 function equationSystem(expr) {
