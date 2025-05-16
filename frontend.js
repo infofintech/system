@@ -55,6 +55,17 @@ function calc(input) {
 }
 function equationSystem(expr) {
     var arr=sys=[],res='';
+    if (expr.includes(';')) {
+        sys=expr.split(';');
+        for (i in sys) {
+            arr.push(equation(sys[i]));
+        } res=finarr(arr).join(';');
+    } else {
+        res=equation(expr);
+    } return res;
+}
+function equation(expr) {
+    var arr=sys=[],res='';
     var varsRegex=/\b(?:([a-z])(?!\w))+\b/gi;
     if (expr.includes(',')) {
         sys=expr.split(',');
