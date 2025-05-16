@@ -39,11 +39,11 @@ function hhmmss(num,omitHours=false) {
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function fixEq(arr) {
-    var res=[]; console.log(arr); for (it in arr) {
-        console.log(arr[it]);
-        if ((arr[it].includes('='))&&(arr[it].split('=').length==2)) {
-            if ((arr[it].split('=')[0]!='')||(arr[it].split('=')[1]!='')) {
-                res.push(arr[it]);
+    var res=[],str=''; for (it in arr) {
+        str=arr[it].toString();
+        if ((str.includes('='))&&(str.split('=').length==2)) {
+            if ((str.split('=')[0]!='')||(str.split('=')[1]!='')) {
+                res.push(str);
             }
         }
     } return res;
