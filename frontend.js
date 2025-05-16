@@ -105,6 +105,7 @@ function calc(expr) {
             if (expr.match(wordsRegex)!==null) { res=expr;
             } else {
                 if (expr.match(varsRegex)!==null) {
+                    console.log(varsRegex);
                     vars=finarr(expr.match(varsRegex));
                     for (v in vars) {
                         sol=nerdamer.solve(expr,vars[v]).toString();
