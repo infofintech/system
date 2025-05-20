@@ -148,13 +148,13 @@ function pad(num,offs) {
         } else { nat=alp; alp=alp+'.'; for (i=ab; i>0; i--) alp=alp+'0'; }
     } return alp;
 }
-function gen(len=4,alpha='0123456789') {
+function genFixedNum(len=4,alpha='0123456789') {
     var alp=alpha.split(''),base=alp.length;
     var res=''; for (i=0; i<len; i++) {
         res+=(alp[rand(0,base-1)]).toString();
     } return res;
 }
-function serial(len=25,alpha='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',pieces=5,delim='-') {
+function genSerial(len=25,alpha='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',pieces=5,delim='-') {
     var alp=alpha.split(''),base=alp.length;
     var res=prep=rest=''; if ((len>pieces)&&(len%pieces==0)) {
         for (i=0; i<len; i++) {
