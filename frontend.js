@@ -154,6 +154,19 @@ function gen(len=4,alpha='0123456789') {
         res+=(alp[rand(0,base-1)]).toString();
     } return res;
 }
+function serial(len=25,alpha='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',pieces=5,delim='-') {
+    var alp=alpha.split(''),base=alp.length;
+    var res=prep=rest=''; if ((len>pieces)&&(len%pieces==0)) {
+        for (i=0; i<len; i++) {
+            res+=(alp[rand(0,base-1)]).toString();
+        } prep=XRegExp.match(res,XRegExp('.{1,'+pieces+'}','g'));
+        rest=prep.join(delim);
+    } else {
+        for (i=0; i<len; i++) {
+            res+=(alp[rand(0,base-1)]).toString();
+        } rest=res;
+    } return rest;
+}
 function decbase(bin,alpha='0123456789abcdef') {
     var alp=alpha.split(''),base=alp.length;
     var div=bin,quot=rem=0,res='';while (div>0) {
