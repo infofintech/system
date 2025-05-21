@@ -335,7 +335,9 @@ function finarr(arr) {
 }
 function arrsum(arr) {
     var res=0; for (i=0; i<arr.length; i++) {
-        if (isNum(arr[i])) { res+=parseFloat(arr[i]); }
+        if (isNum(arr[i])) {
+            res+=(arr[i]<=0)?1:parseFloat(arr[i]);
+        } else { res+=1; }
     } return parseFloat(res);
 }
 function strarr(str,delim=';',equals=':') {
