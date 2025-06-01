@@ -39,19 +39,7 @@ function hhmmss(num,omitHours=false) {
     return (omitHours)?((isHour==0)?(mm+':'+ss):(hh+':'+mm+':'+ss)):(hh+':'+mm+':'+ss);
 }
 function calc(input) {
-    res='',arg=[]; if ((input.includes('|'))||(input.includes('&'))||(input.includes('~'))||(input.includes('^'))) {
-        res=finarr(arrmath(input)).join(';');
-    } else if (input.includes('#')) {
-        if (input.endsWith('*')) {
-            arg=input.slice(0,-1).split('#');
-            res=basedec(arg[0],arg[1])+'#'+arg[1];
-        } else {
-            arg=input.split('#');
-            res=decbase(arg[0],arg[1])+'#'+arg[1]+'*';
-        }
-    } else {
-        res=equationSystem(input);
-    } return res;
+    return ((input.includes('|'))||(input.includes('&'))||(input.includes('~'))||(input.includes('^')))?finarr(arrmath(input)).join(';'):equationSystem(input);
 }
 function equationSystem(expr) {
     var arr=sys=[],res='';
@@ -116,22 +104,42 @@ function arrmath(input) {
     /* UNION, Logical OR */
     if (input.includes('|')) {
         arr=input.split('|'); for (el in arr) {
-            mas=arr[el].split(','); res=(el==0)?mas:res.concat(mas);
+            if ((arr[el].includes(','))&&!(arr[el].includes(';'))) {
+                mas=arr[el].split(',');
+            } else if (!(arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else if ((arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else { mas=arr[el];
+            } res=(el==0)?mas:res.concat(mas);
         }
     /* INTERSECTION, Logical AND */
     } else if (input.includes('&')) {
         arr=input.split('&'); for (el in arr) {
-            mas=arr[el].split(','); res=(el==0)?mas:res.filter(x=>mas.includes(x));
+            if ((arr[el].includes(','))&&!(arr[el].includes(';'))) {
+                mas=arr[el].split(',');
+            } else if (!(arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else if ((arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else { mas=arr[el];
+            } res=(el==0)?mas:res.filter(x=>mas.includes(x));
         }
     /* COMPLEMENT, Logical NOT */
     } else if (input.includes('~')) {
         arr=input.split('~'); for (el in arr) {
-            mas=arr[el].split(','); res=(el==0)?mas:res.filter(x=>!mas.includes(x));
+            if ((arr[el].includes(','))&&!(arr[el].includes(';'))) {
+                mas=arr[el].split(',');
+            } else if (!(arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else if ((arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else { mas=arr[el];
+            } res=(el==0)?mas:res.filter(x=>!mas.includes(x));
         }
     /* SYMMETRIC DIFFERENCE, Logical XOR */
     } else if (input.includes('^')) {
         arr=input.split('^'); for (el in arr) {
-            mas=arr[el].split(','); res=(el==0)?mas:res.filter(x=>!mas.includes(x)).concat(mas.filter(x=>!res.includes(x)));
+            if ((arr[el].includes(','))&&!(arr[el].includes(';'))) {
+                mas=arr[el].split(',');
+            } else if (!(arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else if ((arr[el].includes(','))&&(arr[el].includes(';'))) { mas=arr[el].split(';');
+            } else { mas=arr[el];
+            } res=(el==0)?mas:res.filter(x=>!mas.includes(x)).concat(mas.filter(x=>!res.includes(x)));
         }
     } return res;
 }
