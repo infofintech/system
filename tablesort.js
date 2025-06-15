@@ -17,7 +17,7 @@ function SortTable() {
             arrayOfRows[i].value=GetDateSortingKey(dateformat,celltext);
         } else {
             var re=type=="N"?/[^\.\-\+\d]/g:/[^a-zA-Z0-9]/g;
-            arrayOfRows[i].value=celltext.replace(re,"").substr(0,25).toLowerCase();
+            arrayOfRows[i].value=celltext.replace(re,"").slice(0,25).toLowerCase();
         }
     } if (sortColumn==TableLastSortedColumn) { arrayOfRows.reverse();
     } else { TableLastSortedColumn=sortColumn;
