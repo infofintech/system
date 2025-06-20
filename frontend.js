@@ -320,10 +320,13 @@ function notNull(val) {
     return ((typeof(val)!=='null')&&(typeof(val)!=='undefined'));
 }
 function isLine(val) {
-    return ((typeof(val)!=='null')&&(typeof(val)!=='undefined')&&(typeof(val)!=='object'));
+    return ((notNull(val))&&(typeof(val)!=='object'));
 }
 function isObject(val) {
-    return ((typeof(val)!=='null')&&(typeof(val)!=='undefined')&&(typeof(val)=='object'));
+    return ((notNull(val))&&(typeof(val)=='object'));
+}
+function notEmpty(obj) {
+    return ((isObject(obj))&&(Object.keys(obj).length>0));
 }
 function onlyUnique(value,index,array) {
     return array.indexOf(value)===index;
