@@ -20,7 +20,8 @@ function getdir(action='i',host='',pkg,repo,branch='',user,fend='') {
 function loadFile(name,entry='') {
     var data=res='',arr=ent=[];
     var xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET",name+'?_='+(new Date().getTime()),false);
+    xmlhttp.open("GET",name,false);
+    xmlhttp.setRequestHeader('Cache-Control','no-cache');
     xmlhttp.send(); if (xmlhttp.status==200) {
         data=xmlhttp.responseText;
     } if (entry!='') {
