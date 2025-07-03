@@ -103,8 +103,7 @@ function solutions(expr) {
     } return res;
 }
 function arrmath(input) {
-    var arr=mas=res=[];
-    /* UNION, Logical OR */
+    var arr=mas=res=[]; /* UNION, Logical OR */
     if (input.includes('|')) {
         arr=input.split('|'); for (el in arr) {
             if ((arr[el].includes(','))&&!(arr[el].includes(';'))) {
