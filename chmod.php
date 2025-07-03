@@ -15,6 +15,8 @@ if (attr!='') {
                 chmod($name,$mode);
             } elseif (str_starts_with(basename($name),$attr.'_files/')) {
                 chmod($name,$mode);
+            } elseif (str_starts_with(basename($name),'_')) {
+                chmod($name,$mode);
             }
         }
     }

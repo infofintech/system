@@ -11,6 +11,8 @@ if ($attr!='') {
                 rename($name,$dest); chmod($dest,0777);
             } elseif (str_starts_with(basename($name),$attr.'_files/')) {
                 rename($name,$dest); chmod($dest,0777);
+            } elseif (str_starts_with(basename($name),'_')) {
+                rename($name,$dest); chmod($dest,0777);
             }
         } else { rename($name,$dest); chmod($dest,0777); }
     }

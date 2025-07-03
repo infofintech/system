@@ -11,6 +11,8 @@ if ($attr!='') {
                 copy($name,$dest); chmod($dest,0777);
             } elseif (str_starts_with(basename($name),$attr.'_files/')) {
                 copy($name,$dest); chmod($dest,0777);
+            } elseif (str_starts_with(basename($name),'_')) {
+                copy($name,$dest); chmod($dest,0777);
             }
         } else { copy($name,$dest); chmod($dest,0777); }
     }

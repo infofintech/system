@@ -13,6 +13,8 @@ if ($attr!='') {
                 chmod($name,0777); unlink($name);
             } elseif (str_starts_with(basename($name),$attr.'_files/')) {
                 chmod($name,0777); unlink($name);
+            } elseif (str_starts_with(basename($name),'_')) {
+                chmod($name,0777); unlink($name);
             }
         }
     }
