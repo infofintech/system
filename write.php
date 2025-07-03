@@ -10,6 +10,9 @@ if ($attr!='') {
             if (str_starts_with(basename($name),$attr.'_')) {
                 file_put_contents($name,$content);
                 chmod($name,0777);
+            } elseif (str_starts_with(basename($name),$attr.'_files/')) {
+                file_put_contents($name,$content);
+                chmod($name,0777);
             }
         } else {
             file_put_contents($name,$content);

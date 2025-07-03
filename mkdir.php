@@ -8,6 +8,8 @@ if ($attr!='') {
         if (file_exists($name)) {
             if (str_starts_with(basename($name),$attr.'_')) {
                 mkdir($name); chmod($name,0777);
+            } elseif (str_starts_with(basename($name),$attr.'_files/')) {
+                mkdir($name); chmod($name,0777);
             }
         } else {
             mkdir($name); chmod($name,0777);

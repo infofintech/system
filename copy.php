@@ -9,6 +9,8 @@ if ($attr!='') {
         if (file_exists($dest)) {
             if (str_starts_with(basename($name),$attr.'_')) {
                 copy($name,$dest); chmod($dest,0777);
+            } elseif (str_starts_with(basename($name),$attr.'_files/')) {
+                copy($name,$dest); chmod($dest,0777);
             }
         } else { copy($name,$dest); chmod($dest,0777); }
     }

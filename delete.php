@@ -11,6 +11,8 @@ if ($attr!='') {
         if (file_exists($name)) {
             if (str_starts_with(basename($name),$attr.'_')) {
                 chmod($name,0777); unlink($name);
+            } elseif (str_starts_with(basename($name),$attr.'_files/')) {
+                chmod($name,0777); unlink($name);
             }
         }
     }
