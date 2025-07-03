@@ -1,5 +1,11 @@
 function ucfirst(str) {
-    return (str[0].toUpperCase()+str.slice(1));
+    return (str[0].toUpperCase()+str.slice(1).toLowerCase());
+}
+function snakeToCamel(str,delim='_') {
+    var arr=str.split(delim);
+    var res=''; for (item in arr) {
+        res+=ucfirst(arr[item]);
+    } return res;
 }
 function jsonarr(str) {
     var res={}; try { res=JSON.parse(str);
