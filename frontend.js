@@ -211,14 +211,16 @@ function decode(hex,offs=0,alpha='0123456789ABCDEF') {
     } else { res=''; } return res;
 }
 function format_number(num,prec=0,delim='',decim=',') {
-    var res=res1=res2=res3=''; if (isFloat(num)) {
-        res1=parseInt(num).toString();
-        res2=(num.toString().replace(res1+'.','')).toString();
-        res3=(res1.replace(/\B(?=(\d{3})+(?!\d))/g,delim));
-        res=(prec>0)?(res3+decim+(res2.slice(0,prec))):res1;
-    } else if (isInt(num)) {
-        res=num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
-    } else { res=num; } return res;
+    var res=res1=res2=res3=''; if (notNull(num)) {
+        if (isFloat(num)) {
+            res1=parseInt(num).toString();
+            res2=(num.toString().replace(res1+'.','')).toString();
+            res3=(res1.replace(/\B(?=(\d{3})+(?!\d))/g,delim));
+            res=(prec>0)?(res3+decim+(res2.slice(0,prec))):res1;
+        } else if (isInt(num)) {
+            res=num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,delim);
+        } else { res=num; }
+    } else { res=0; } return res;
 }
 function sumstr(str) {
     var sum=0; for (i=0; i<str.length; i++) {
