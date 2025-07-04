@@ -47,7 +47,7 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                     file_put_contents($path,hex2bin($jf[$path]));
                     chmod($path,0777); unset($jf[$path]);
                 } $res=$jf;
-            } $cont=($res==[])?[""=>""]:$res; break;
+            } $cont=($res==[])?[""=>""]:$res;
         } elseif (strtolower($oper)=='pack') {
             if ($jf==[""=>""]) { unset($jf[""]); }
             if (strpos($path,'/')!==false) {
@@ -56,7 +56,7 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                 $temp=bin2hex($gf); $res=$jf;
             } else {
                 if (!(isset($jf[$path]))) { $jf[$path]=bin2hex($gf); } $res=$jf;
-            } $cont=($res==[])?[""=>""]:$res; break;
+            } $cont=($res==[])?[""=>""]:$res;
         } file_put_contents($name,json_encode($cont)); chmod($name,0777);
     } else {
         if ((str_starts_with(basename($name),$attr.'_'))||(str_starts_with(basename($name),$attr.'_files/'))||(str_starts_with(basename($name),'_'))) {
@@ -100,7 +100,7 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                         file_put_contents($path,hex2bin($jf[$path]));
                         chmod($path,0777); unset($jf[$path]);
                     } $res=$jf;
-                } $cont=($res==[])?[""=>""]:$res; break;
+                } $cont=($res==[])?[""=>""]:$res;
             } elseif (strtolower($oper)=='pack') {
                 if ($jf==[""=>""]) { unset($jf[""]); }
                 if (strpos($path,'/')!==false) {
@@ -109,7 +109,7 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                     $temp=bin2hex($gf); $res=$jf;
                 } else {
                     if (!(isset($jf[$path]))) { $jf[$path]=bin2hex($gf); } $res=$jf;
-                } $cont=($res==[])?[""=>""]:$res; break;
+                } $cont=($res==[])?[""=>""]:$res;
             } file_put_contents($name,json_encode($cont)); chmod($name,0777);
         }
     }
