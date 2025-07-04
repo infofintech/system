@@ -113,7 +113,7 @@ function playAudio(obj,name) {
 function pauseAudio(obj) { obj.pause(); }
 function playMIDI(id) { MIDIjs.play(id); }
 function pauseMIDI() { MIDIjs.pause(); }
-function obj(name,oper,path='',val='',fend='') {
+function obj(name,oper,path='',val='',attr='',fend='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
@@ -122,7 +122,7 @@ function obj(name,oper,path='',val='',fend='') {
                 document.location.reload();
             }
         }
-    }; xmlhttp.open("GET","obj.php?name="+name+"&oper="+oper+"&path="+encodeURIComponent(path)+"&val="+val,false);
+    }; xmlhttp.open("GET","obj.php?name="+name+"&oper="+oper+"&path="+encodeURIComponent(path)+"&val="+val+"&attr="+attr,false);
     xmlhttp.send();
 }
 function recycle(name,fend='') {
