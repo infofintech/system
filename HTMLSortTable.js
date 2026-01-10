@@ -4,6 +4,7 @@ function SortTable() {
     var sortColumn=parseInt(arguments[0]);
     var type=arguments.length>1?arguments[1]:'T';
     var dateformat=arguments.length>2?arguments[2]:'';
+    var TableIDvalue=arguments.length>3?arguments[3]:'table';
     var table=document.getElementById(TableIDvalue);
     var tbody=table.getElementsByTagName("tbody")[0];
     var rows=tbody.getElementsByTagName("tr");
