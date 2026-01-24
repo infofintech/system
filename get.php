@@ -18,8 +18,7 @@ if (!file_exists('get.lock')) {
             } else {
                 if (file_exists($urlEndPt.'.package.json')) {
                     $package=(@json_decode(file_get_contents($urlEndPt.'.package.json'),true)!=null)?json_decode(file_get_contents($urlEndPt.'.package.json'),true):['files'=>''];
-                    $files=explode(';',$package['files']);
-                    foreach ($files as $file) {
+                    foreach ($package['files'] as $file) {
                         if (file_exists($file)) {
                             chmod($file,0777); unlink($file);
                         }
@@ -39,8 +38,7 @@ if (!file_exists('get.lock')) {
             exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
         } else {
             if (file_exists($pkg.'.package.json')) {
-                $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; $files=explode(';',$package['files']);
-                foreach ($files as $file) {
+                $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; foreach ($package['files'] as $file) {
                     if (file_exists($file)) {
                         chmod($file,0777); unlink($file);
                     }
@@ -53,8 +51,7 @@ if (!file_exists('get.lock')) {
              exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
         } else {
             if (file_exists($pkg.'.package.json')) {
-                $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; $files=explode(';',$package['files']);
-                foreach ($files as $file) {
+                $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; foreach ($package['files'] as $file) {
                     if (file_exists($file)) {
                         chmod($file,0777); unlink($file);
                     }
