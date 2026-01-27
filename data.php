@@ -37,13 +37,13 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                             mkdir($nxEl); chmod($nxEl,0777);
                         }
                     } else {
-                        file_put_contents($nxEl,hex2bin($prevEl[$node]));
+                        file_put_contents($nxEl,base64_decode($prevEl[$node]));
                         chmod($nxEl,0777);
                     } $iter++;
                 } $res=$jf;
             } else {
                 if (isset($jf[$path])) {
-                    file_put_contents($path,hex2bin($jf[$path]));
+                    file_put_contents($path,base64_decode($jf[$path]));
                     chmod($path,0777);
                 } $res=$jf;
             } $cont=($res==[])?[""=>""]:$res;
@@ -58,13 +58,13 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                             mkdir($nxEl); chmod($nxEl,0777);
                         }
                     } else {
-                        file_put_contents($nxEl,hex2bin($prevEl[$node]));
+                        file_put_contents($nxEl,base64_decode($prevEl[$node]));
                         chmod($nxEl,0777);
                     } $iter++;
                 } if ($prevEl!==NULL) { unset($prevEl[$node]); } $res=$jf;
             } else {
                 if (isset($jf[$path])) {
-                    file_put_contents($path,hex2bin($jf[$path]));
+                    file_put_contents($path,base64_decode($jf[$path]));
                     chmod($path,0777); unset($jf[$path]);
                 } $res=$jf;
             } $cont=($res==[])?[""=>""]:$res;
@@ -73,18 +73,18 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
             if (strpos($path,'/')!==false) {
                 $nodes=explode('/',$path); $temp=&$jf;
                 foreach ($nodes as $key) { $temp=&$temp[$key]; }
-                $temp=bin2hex($gf); $res=$jf;
+                $temp=base64_encode($gf); $res=$jf;
             } else {
-                if (!(isset($jf[$path]))) { $jf[$path]=bin2hex($gf); } $res=$jf;
+                if (!(isset($jf[$path]))) { $jf[$path]=base64_encode($gf); } $res=$jf;
             } $cont=($res==[])?[""=>""]:$res;
         } elseif (strtolower($oper)=='put') {
             if ($jf==[""=>""]) { unset($jf[""]); }
             if (strpos($path,'/')!==false) {
                 $nodes=explode('/',$path); $temp=&$jf;
                 foreach ($nodes as $key) { $temp=&$temp[$key]; }
-                $temp=bin2hex($gf); $res=$jf;
+                $temp=base64_encode($gf); $res=$jf;
             } else {
-                if (!(isset($jf[$path]))) { $jf[$path]=bin2hex($gf); } $res=$jf;
+                if (!(isset($jf[$path]))) { $jf[$path]=base64_encode($gf); } $res=$jf;
             } if (file_exists($path)) {
                 chmod($path,0777); unlink($path);
             } $cont=($res==[])?[""=>""]:$res;
@@ -122,12 +122,12 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                                 mkdir($nxEl); chmod($nxEl,0777);
                             }
                         } else {
-                            file_put_contents($nxEl,hex2bin($prevEl[$node])); chmod($nxEl,0777);
+                            file_put_contents($nxEl,base64_decode($prevEl[$node])); chmod($nxEl,0777);
                         } $iter++;
                     } $res=$jf;
                 } else {
                     if (isset($jf[$path])) {
-                        file_put_contents($path,hex2bin($jf[$path]));
+                        file_put_contents($path,base64_decode($jf[$path]));
                         chmod($path,0777);
                     } $res=$jf;
                 } $cont=($res==[])?[""=>""]:$res;
@@ -143,12 +143,12 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                                 mkdir($nxEl); chmod($nxEl,0777);
                             }
                         } else {
-                            file_put_contents($nxEl,hex2bin($prevEl[$node])); chmod($nxEl,0777);
+                            file_put_contents($nxEl,base64_decode($prevEl[$node])); chmod($nxEl,0777);
                         } $iter++;
                     } if ($prevEl!==NULL) { unset($prevEl[$node]); } $res=$jf;
                 } else {
                     if (isset($jf[$path])) {
-                        file_put_contents($path,hex2bin($jf[$path]));
+                        file_put_contents($path,base64_decode($jf[$path]));
                         chmod($path,0777); unset($jf[$path]);
                     } $res=$jf;
                 } $cont=($res==[])?[""=>""]:$res;
@@ -157,18 +157,18 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
                 if (strpos($path,'/')!==false) {
                     $nodes=explode('/',$path); $temp=&$jf;
                     foreach ($nodes as $key) { $temp=&$temp[$key]; }
-                    $temp=bin2hex($gf); $res=$jf;
+                    $temp=base64_encode($gf); $res=$jf;
                 } else {
-                    if (!(isset($jf[$path]))) { $jf[$path]=bin2hex($gf); } $res=$jf;
+                    if (!(isset($jf[$path]))) { $jf[$path]=base64_encode($gf); } $res=$jf;
                 } $cont=($res==[])?[""=>""]:$res;
             } elseif (strtolower($oper)=='put') {
                 if ($jf==[""=>""]) { unset($jf[""]); }
                 if (strpos($path,'/')!==false) {
                     $nodes=explode('/',$path); $temp=&$jf;
                     foreach ($nodes as $key) { $temp=&$temp[$key]; }
-                    $temp=bin2hex($gf); $res=$jf;
+                    $temp=base64_encode($gf); $res=$jf;
                 } else {
-                    if (!(isset($jf[$path]))) { $jf[$path]=bin2hex($gf); } $res=$jf;
+                    if (!(isset($jf[$path]))) { $jf[$path]=base64_encode($gf); } $res=$jf;
                 } if (file_exists($path)) {
                     chmod($path,0777); unlink($path);
                 } $cont=($res==[])?[""=>""]:$res;
