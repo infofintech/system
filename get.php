@@ -17,10 +17,15 @@ if (!file_exists('get.lock')) {
                 chmod($urlEndPt,0777);
             } else {
                 if (file_exists($urlEndPt.'.package.json')) {
-                    $package=(@json_decode(file_get_contents($urlEndPt.'.package.json'),true)!=null)?json_decode(file_get_contents($urlEndPt.'.package.json'),true):['files'=>''];
+                    $package=(@json_decode(file_get_contents($urlEndPt.'.package.json'),true)!=null)?json_decode(file_get_contents($urlEndPt.'.package.json'),true):['files'=>[]];
                     foreach ($package['files'] as $file) {
                         if (file_exists($file)) {
-                            chmod($file,0777); unlink($file);
+                            if ((is_dir($file))&&(!is_link($file))) {
+                                exec('chmod -vR 777 "'.$file.'"');
+                                exec('rm -vr "'.$file.'"');
+                            } else {
+                                chmod($file,0777); unlink($file);
+                            }
                         }
                     } chmod($urlEndPt.'.package.json',0777); unlink($urlEndPt.'.package.json');
                 } if (file_exists($urlEndPt)) {
@@ -40,7 +45,12 @@ if (!file_exists('get.lock')) {
             if (file_exists($pkg.'.package.json')) {
                 $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; foreach ($package['files'] as $file) {
                     if (file_exists($file)) {
-                        chmod($file,0777); unlink($file);
+                        if ((is_dir($file))&&(!is_link($file))) {
+                            exec('chmod -vR 777 "'.$file.'"');
+                            exec('rm -vr "'.$file.'"');
+                        } else {
+                            chmod($file,0777); unlink($file);
+                        }
                     }
                 } chmod($pkg.'.package.json',0777); unlink($pkg.'.package.json');
             }
@@ -53,7 +63,12 @@ if (!file_exists('get.lock')) {
             if (file_exists($pkg.'.package.json')) {
                 $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; foreach ($package['files'] as $file) {
                     if (file_exists($file)) {
-                        chmod($file,0777); unlink($file);
+                        if ((is_dir($file))&&(!is_link($file))) {
+                            exec('chmod -vR 777 "'.$file.'"');
+                            exec('rm -vr "'.$file.'"');
+                        } else {
+                            chmod($file,0777); unlink($file);
+                        }
                     }
                 } chmod($pkg.'.package.json',0777); unlink($pkg.'.package.json');
             }
