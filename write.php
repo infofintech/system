@@ -16,7 +16,7 @@ if ($attr!='') {
                 chmod($name,octdec($mode));
             } elseif (str_starts_with(basename($name),'_')) {
                 file_put_contents($name,$content);
-                chmod($name,octdec(mode));
+                chmod($name,octdec($mode));
             }
         } else {
             file_put_contents($name,$content);

@@ -14,8 +14,6 @@ if ($attr!='') {
             } elseif (str_starts_with(basename($name),'_')) {
                 mkdir($name); chmod($name,octdec($mode));
             }
-        } else {
-            mkdir($name); chmod($name,octdec($mode));
-        }
+        } else { mkdir($name); chmod($name,octdec($mode)); }
     }
 }
