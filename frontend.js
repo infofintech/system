@@ -13,10 +13,6 @@ function utob(base64) {
     const decoder=new TextDecoder();
     return decoder.decode(bytes);
 }
-function truncateText(text,maxLen=100) {
-    if (text.length<=maxLen) return text;
-    return text.substring(0,maxLen)+'...';
-}
 function replaceLineBreaks(input='') {
     return (input.toString('')).replace(/[\r\n]+/g,' ');
 }
