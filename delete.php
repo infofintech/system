@@ -12,7 +12,9 @@ if ($attr!='') {
         if (file_exists($name)) {
             if (str_starts_with(basename($name),$attr.'_')) {
                 chmod($name,octdec($mode)); unlink($name);
-            } elseif (str_starts_with(basename($name),$attr.'_files/')) {
+            } elseif (str_starts_with($name,$attr.'_files/')) {
+                chmod($name,octdec($mode)); unlink($name);
+            } elseif (str_starts_with($name,'./'.$attr.'_files/')) {
                 chmod($name,octdec($mode)); unlink($name);
             } elseif (str_starts_with(basename($name),'_')) {
                 chmod($name,octdec($mode)); unlink($name);

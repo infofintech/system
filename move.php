@@ -10,7 +10,9 @@ if ($attr!='') {
         if (file_exists($dest)) {
             if (str_starts_with(basename($name),$attr.'_')) {
                 rename($name,$dest); chmod($dest,octdec($mode));
-            } elseif (str_starts_with(basename($name),$attr.'_files/')) {
+            } elseif (str_starts_with($name,$attr.'_files/')) {
+                rename($name,$dest); chmod($dest,octdec($mode));
+            } elseif (str_starts_with($name,'./'.$attr.'_files/')) {
                 rename($name,$dest); chmod($dest,octdec($mode));
             } elseif (str_starts_with(basename($name),'_')) {
                 rename($name,$dest); chmod($dest,octdec($mode));

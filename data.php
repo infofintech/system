@@ -100,7 +100,7 @@ $jf=(@json_decode(file_get_contents($name),true)!=null)?json_decode(file_get_con
             } $cont=($res==[])?[""=>""]:$res;
         } file_put_contents($name,json_encode($cont)); chmod($name,0777);
     } else {
-        if ((str_starts_with(basename($name),$attr.'_'))||(str_starts_with(basename($name),$attr.'_files/'))||(str_starts_with(basename($path),$attr.'_'))||(str_starts_with(basename($path),$attr.'_files/'))||(str_starts_with(basename($name),'_'))||(str_starts_with(basename($path),'_'))) {
+        if ((str_starts_with(basename($name),$attr.'_'))||(str_starts_with($name,$attr.'_files/'))||(str_starts_with($name,'./'.$attr.'_files/'))||(str_starts_with(basename($path),$attr.'_'))||(str_starts_with($path,$attr.'_files/'))||(str_starts_with(basename($name),'_'))||(str_starts_with(basename($path),'_'))) {
             if (strtolower($oper)=='add') {
                 if ($jf==[""=>""]) { unset($jf[""]); }
                 if (strpos($path,'/')!==false) {
