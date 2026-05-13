@@ -27,8 +27,8 @@ function loadFile(name,entry='') {
         }
     } else { res=data; } return res;
 }
-function set(name,content,attr,mode='0777',fend='') {
-    var dataString='name='+name+'&content='+content+'&attr='+attr+'&mode='+mode;
+function set(name,content,attr,fend='') {
+    var dataString='name='+name+'&content='+content+'&attr='+attr;
     $.ajax({
         type: "POST", url: "write.php",
         data: dataString, cache: false,
@@ -37,54 +37,44 @@ function set(name,content,attr,mode='0777',fend='') {
         }
     }); return false;
 }
-function del(name,attr,mode='0777',fend='') {
+function del(name,attr,fend='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (fend!='') { document.location.reload(); }
         }
-    }; xmlhttp.open("GET","delete.php?name="+name+"&attr="+attr+'&mode='+mode,false);
+    }; xmlhttp.open("GET","delete.php?name="+name+"&attr="+attr,false);
     xmlhttp.send();
 }
-function chmod(name,mode='0777',attr,fend='') {
+function mkdir(name,attr,fend='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (fend!='') { document.location.reload(); }
         }
-    }; xmlhttp.open("GET","chmod.php?name="+name+"&mode="+mode+"&attr="+attr,false);
+    }; xmlhttp.open("GET","mkdir.php?name="+name+"&attr="+attr,false);
     xmlhttp.send();
 }
-function mkdir(name,attr,mode='0777',fend='') {
+function move(name,dest,attr,fend='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (fend!='') { document.location.reload(); }
         }
-    }; xmlhttp.open("GET","mkdir.php?name="+name+"&attr="+attr+"&mode="+mode,false);
+    }; xmlhttp.open("GET","move.php?name="+name+"&dest="+dest+"&attr="+attr,false);
     xmlhttp.send();
 }
-function move(name,dest,attr,mode='0777',fend='') {
+function copy(name,dest,attr,fend='') {
     if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
     } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4&&this.status==200) {
             if (fend!='') { document.location.reload(); }
         }
-    }; xmlhttp.open("GET","move.php?name="+name+"&dest="+dest+"&attr="+attr+"&mode="+mode,false);
-    xmlhttp.send();
-}
-function copy(name,dest,attr,mode='0777',fend='') {
-    if (window.XMLHttpRequest) { xmlhttp=new XMLHttpRequest();
-    } else { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
-    xmlhttp.onreadystatechange=function() {
-        if (this.readyState==4&&this.status==200) {
-            if (fend!='') { document.location.reload(); }
-        }
-    }; xmlhttp.open("GET","copy.php?name="+name+"&dest="+dest+"&attr="+attr+"&mode="+mode,false);
+    }; xmlhttp.open("GET","copy.php?name="+name+"&dest="+dest+"&attr="+attr,false);
     xmlhttp.send();
 }
 function playAudio(obj,name) {
