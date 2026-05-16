@@ -40,7 +40,7 @@ if (!file_exists('get.lock')) {
         } chmod('get.lock',0777); unlink('get.lock');
     } elseif (($action=='r')||($action=='p')||($action=='m')) {
         if (preg_match('/raw/i',$attr)) {
-            if (!preg_match('/\_\w+$/gi',$pkg)) {
+            if (preg_match('/\_\w+$/gi',$pkg)===false) {
                 exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
             }
         } else {
@@ -60,7 +60,7 @@ if (!file_exists('get.lock')) {
         header('Location: get.php?action=i&attr='.$attr.'&url='.$url.'&pkg=&branch='.$branch.'&user='.$user);
     } elseif (($action=='d')||($action=='u')||($action=='x')) {
         if (preg_match('/raw/i',$attr)) {
-            if (!preg_match('/\_\w+$/gi',$pkg)) {
+            if (preg_match('/\_\w+$/gi',$pkg)===false) {
                 exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
             }
         } else {
