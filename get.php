@@ -40,7 +40,9 @@ if (!file_exists('get.lock')) {
         } chmod('get.lock',0777); unlink('get.lock');
     } elseif (($action=='r')||($action=='p')||($action=='m')) {
         if (preg_match('/raw/i',$attr)) {
-            exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
+            if (strpos($pkg,'_')!==false) {
+                exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
+            }
         } else {
             if (file_exists($pkg.'.package.json')) {
                 $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; foreach ($package['files'] as $file) {
@@ -58,7 +60,9 @@ if (!file_exists('get.lock')) {
         header('Location: get.php?action=i&attr='.$attr.'&url='.$url.'&pkg=&branch='.$branch.'&user='.$user);
     } elseif (($action=='d')||($action=='u')||($action=='x')) {
         if (preg_match('/raw/i',$attr)) {
-             exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
+            if (strpos($pkg,'_')!==false) {
+                exec('chmod -vR 777 .'); exec('rm -vr '.$pkg);
+            }
         } else {
             if (file_exists($pkg.'.package.json')) {
                 $package=(@json_decode(file_get_contents($pkg.'.package.json'),true)!=null)?json_decode(file_get_contents($pkg.'.package.json'),true):['files'=>'']; foreach ($package['files'] as $file) {
